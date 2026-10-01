@@ -1,0 +1,320 @@
+{
+  "entities": {
+    "User": {
+      "title": "User",
+      "description": "Customer and administrator profiles for Apex Online Banking",
+      "type": "object",
+      "properties": {
+        "uid": {
+          "type": "string",
+          "description": "Firebase Auth User ID"
+        },
+        "email": {
+          "type": "string",
+          "format": "email",
+          "description": "User email address"
+        },
+        "displayName": {
+          "type": "string",
+          "description": "Customer full legal name"
+        },
+        "accountNumber": {
+          "type": "string",
+          "description": "Unique Apex 10-digit account identifier"
+        },
+        "routingNumber": {
+          "type": "string",
+          "description": "Apex bank routing number"
+        },
+        "balance": {
+          "type": "number",
+          "description": "Available checking balance in USD"
+        },
+        "savingsBalance": {
+          "type": "number",
+          "description": "High-yield savings balance in USD"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["active", "locked"],
+          "description": "Account operational status"
+        },
+        "transfersRestricted": {
+          "type": "boolean",
+          "description": "Flag indicating if transfers are restricted"
+        },
+        "warningMessage": {
+          "type": "string",
+          "description": "Administrative compliance or alert message displayed to user"
+        },
+        "transactionPin": {
+          "type": "string",
+          "description": "Hashed or 4-digit transaction authorization PIN"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "Customer phone contact"
+        },
+        "address": {
+          "type": "string",
+          "description": "Customer residential address"
+        },
+        "role": {
+          "type": "string",
+          "enum": ["customer", "admin"],
+          "description": "User role"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Account registration timestamp"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Account last update timestamp"
+        }
+      },
+      "required": ["uid", "email", "accountNumber", "balance", "status"]
+    },
+    "Transaction": {
+      "title": "Transaction",
+      "description": "Financial ledger record of transfers, wires, and admin credits",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique transaction tracking reference"
+        },
+        "senderId": {
+          "type": "string",
+          "description": "Sender user ID or 'CENTRAL_VAULT'"
+        },
+        "senderName": {
+          "type": "string",
+          "description": "Sender entity or customer name"
+        },
+        "senderAccountNumber": {
+          "type": "string",
+          "description": "Originating account number"
+        },
+        "recipientId": {
+          "type": "string",
+          "description": "Recipient user ID or external identifier"
+        },
+        "recipientName": {
+          "type": "string",
+          "description": "Recipient entity or customer name"
+        },
+        "recipientAccountNumber": {
+          "type": "string",
+          "description": "Destination account number or IBAN"
+        },
+        "recipientBank": {
+          "type": "string",
+          "description": "Destination bank name for wire transfers"
+        },
+        "recipientCountry": {
+          "type": "string",
+          "description": "Destination country for international transfers"
+        },
+        "amount": {
+          "type": "number",
+          "description": "Transfer amount in USD"
+        },
+        "currency": {
+          "type": "string",
+          "description": "Currency code (USD)"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["internal_transfer", "international_wire", "admin_funding", "reversal"],
+          "description": "Transaction category"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["completed", "reversed", "pending"],
+          "description": "Settlement state"
+        },
+        "description": {
+          "type": "string",
+          "description": "Memo or transfer remarks"
+        },
+        "reference": {
+          "type": "string",
+          "description": "Official wire or transfer reference code"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp of execution"
+        },
+        "reversedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Timestamp if reversed"
+        },
+        "reversedBy": {
+          "type": "string",
+          "description": "Admin email who reversed the transaction"
+        }
+      },
+      "required": ["id", "amount", "type", "status", "createdAt"]
+    },
+    "BankReserve": {
+      "title": "BankReserve",
+      "description": "Apex Central Bank Reserve Vault",
+      "type": "object",
+      "properties": {
+        "vaultBalance": {
+          "type": "number",
+          "description": "Central reserve balance (10 Billion USD)"
+        },
+        "totalFunded": {
+          "type": "number",
+          "description": "Cumulative USD credited to customers"
+        },
+        "totalReversed": {
+          "type": "number",
+          "description": "Cumulative USD reversed"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last audit timestamp"
+        }
+      },
+      "required": ["vaultBalance"]
+    },
+    "SupportChat": {
+      "title": "SupportChat",
+      "description": "Customer service conversation channel",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Chat session ID"
+        },
+        "customerId": {
+          "type": "string",
+          "description": "Customer UID"
+        },
+        "customerEmail": {
+          "type": "string",
+          "description": "Customer email"
+        },
+        "customerName": {
+          "type": "string",
+          "description": "Customer full name"
+        },
+        "status": {
+          "type": "string",
+          "enum": ["open", "resolved"],
+          "description": "Status of support inquiry"
+        },
+        "lastMessage": {
+          "type": "string",
+          "description": "Snippet of latest message"
+        },
+        "updatedAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Last activity timestamp"
+        }
+      },
+      "required": ["id", "customerId", "status"]
+    },
+    "ChatMessage": {
+      "title": "ChatMessage",
+      "description": "Individual message within a support chat session",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Message ID"
+        },
+        "chatId": {
+          "type": "string",
+          "description": "Parent chat ID"
+        },
+        "senderId": {
+          "type": "string",
+          "description": "User ID of sender"
+        },
+        "senderRole": {
+          "type": "string",
+          "enum": ["customer", "admin"],
+          "description": "Role of the sender"
+        },
+        "senderName": {
+          "type": "string",
+          "description": "Sender display name"
+        },
+        "content": {
+          "type": "string",
+          "description": "Message text content"
+        },
+        "attachments": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": { "type": "string" },
+              "name": { "type": "string" },
+              "type": { "type": "string" },
+              "size": { "type": "number" },
+              "dataUrl": { "type": "string" },
+              "isImage": { "type": "boolean" }
+            },
+            "required": ["id", "name", "type", "dataUrl", "isImage"]
+          },
+          "description": "Attached pictures or documents for customer support"
+        },
+        "createdAt": {
+          "type": "string",
+          "format": "date-time",
+          "description": "Message sent timestamp"
+        }
+      },
+      "required": ["id", "chatId", "senderId", "senderRole", "content", "createdAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": {
+        "$ref": "#/entities/User"
+      },
+      "description": "Customer profiles and account states"
+    },
+    "/transactions/{transactionId}": {
+      "schema": {
+        "$ref": "#/entities/Transaction"
+      },
+      "description": "All bank transfer and wire records"
+    },
+    "/bank_reserves/{reserveId}": {
+      "schema": {
+        "$ref": "#/entities/BankReserve"
+      },
+      "description": "Central 10 Billion USD reserve ledger"
+    },
+    "/support_chats/{chatId}": {
+      "schema": {
+        "$ref": "#/entities/SupportChat"
+      },
+      "description": "Active live customer support threads"
+    },
+    "/support_chats/{chatId}/messages/{messageId}": {
+      "schema": {
+        "$ref": "#/entities/ChatMessage"
+      },
+      "description": "Live chat message history"
+    },
+    "/support_messages/{messageId}": {
+      "schema": {
+        "$ref": "#/entities/ChatMessage"
+      },
+      "description": "Cross-device customer support message registry"
+    }
+  }
+}
