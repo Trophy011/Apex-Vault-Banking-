@@ -24,6 +24,24 @@ export const ADMIN_EMAIL = 'managementofficails001@gmail.com';
 export const ADMIN_PASSWORD = 'smart446688';
 export const INITIAL_VAULT_BALANCE = 10000000000.00; // 10 Billion USD
 
+// Strip undefined fields to prevent Firestore serialization errors
+export function cleanFirestoreData<T>(data: T): any {
+  if (data === null || data === undefined) return null;
+  if (Array.isArray(data)) {
+    return data.map(cleanFirestoreData).filter(item => item !== undefined);
+  }
+  if (typeof data === 'object' && !(data instanceof Date)) {
+    const res: Record<string, any> = {};
+    for (const [key, val] of Object.entries(data as Record<string, any>)) {
+      if (val !== undefined) {
+        res[key] = cleanFirestoreData(val);
+      }
+    }
+    return res;
+  }
+  return data;
+}
+
 // Default mock admin account
 const defaultAdminUser: BankUser = {
   uid: 'admin-apex-operator-001',
@@ -415,9 +433,9 @@ class BankStore {
     this.saveTxsLocal();
 
     // Sync to Cloud Firestore (Atomic across devices)
-    setDoc(doc(db, 'users', customerUid), customer, { merge: true }).catch(() => {});
-    setDoc(doc(db, 'bank_reserves', 'central'), this.reserve, { merge: true }).catch(() => {});
-    setDoc(doc(db, 'transactions', tx.id), tx).catch(() => {});
+    setDoc(doc(db, 'users', customerUid), cleanFirestoreData(customer), { merge: true }).catch(() => {});
+    setDoc(doc(db, 'bank_reserves', 'central'), cleanFirestoreData(this.reserve), { merge: true }).catch(() => {});
+    setDoc(doc(db, 'transactions', tx.id), cleanFirestoreData(tx)).catch(() => {});
 
     return tx;
   }
@@ -517,7 +535,7 @@ class BankStore {
     this.saveTxsLocal();
 
     // Sync reversed transaction to Cloud Firestore
-    setDoc(doc(db, 'transactions', tx.id), tx, { merge: true }).catch(() => {});
+    setDoc(doc(db, 'transactions', tx.id), cleanFirestoreData(tx), { merge: true }).catch(() => {});
 
     return tx;
   }
@@ -581,9 +599,9 @@ class BankStore {
     this.saveTxsLocal();
 
     // Write all mutations to Firestore for multi-device sync
-    setDoc(doc(db, 'users', sender.uid), sender, { merge: true }).catch(() => {});
-    setDoc(doc(db, 'users', recipient.uid), recipient, { merge: true }).catch(() => {});
-    setDoc(doc(db, 'transactions', tx.id), tx).catch(() => {});
+    setDoc(doc(db, 'users', sender.uid), cleanFirestoreData(sender), { merge: true }).catch(() => {});
+    setDoc(doc(db, 'users', recipient.uid), cleanFirestoreData(recipient), { merge: true }).catch(() => {});
+    setDoc(doc(db, 'transactions', tx.id), cleanFirestoreData(tx)).catch(() => {});
 
     return tx;
   }
@@ -648,8 +666,8 @@ class BankStore {
     this.saveTxsLocal();
 
     // Write to Cloud Firestore
-    setDoc(doc(db, 'users', sender.uid), sender, { merge: true }).catch(() => {});
-    setDoc(doc(db, 'transactions', tx.id), tx).catch(() => {});
+    setDoc(doc(db, 'users', sender.uid), cleanFirestoreData(sender), { merge: true }).catch(() => {});
+    setDoc(doc(db, 'transactions', tx.id), cleanFirestoreData(tx)).catch(() => {});
 
     return tx;
   }
@@ -666,13 +684,16 @@ class BankStore {
 
   // --- Live Support Chat (Synchronized to Cloud) ---
   public getOrCreateChat(customerId: string, customerEmail: string, customerName: string): SupportChat {
-    let chat = Array.from(this.chats.values()).find(c => c.customerId === customerId);
+    const cleanEmail = customerEmail ? customerEmail.trim().toLowerCase() : '';
+    let chat = Array.from(this.chats.values()).find(
+      c => c.customerId === customerId || (cleanEmail && c.customerEmail.toLowerCase() === cleanEmail)
+    );
     if (!chat) {
       chat = {
         id: `chat_${customerId}`,
         customerId,
-        customerEmail,
-        customerName,
+        customerEmail: customerEmail || 'visitor@apexbank.com',
+        customerName: customerName || 'Valued Client',
         status: 'open',
         lastMessage: 'Chat session started with Apex Client Concierge',
         updatedAt: new Date().toISOString(),
@@ -686,15 +707,33 @@ class BankStore {
         senderId: 'apex-support-desk',
         senderRole: 'admin',
         senderName: 'Apex Premier Support Desk',
-        content: `Hello ${customerName}. Welcome to Apex 24/7 Priority Banking Support. How may our management concierge assist you today?`,
+        content: `Hello ${customerName || 'Valued Client'}. Welcome to Apex 24/7 Priority Banking Support. An operator on the management desk is connected to assist you.`,
         createdAt: new Date().toISOString(),
       };
       this.messages.push(welcomeMsg);
       this.saveChatsLocal();
 
-      // Sync chat & welcome message to Firestore
-      setDoc(doc(db, 'support_chats', chat.id), chat).catch(() => {});
-      setDoc(doc(db, 'support_messages', welcomeMsg.id), welcomeMsg).catch(() => {});
+      // Sync chat & welcome message to Firestore (sanitized)
+      setDoc(doc(db, 'support_chats', chat.id), cleanFirestoreData(chat)).catch(err => {
+        console.error('Error syncing support_chats to Firestore:', err);
+      });
+      setDoc(doc(db, 'support_messages', welcomeMsg.id), cleanFirestoreData(welcomeMsg)).catch(err => {
+        console.error('Error syncing welcome message to Firestore:', err);
+      });
+    } else {
+      let needsSave = false;
+      if (customerName && customerName !== 'Guest Visitor' && chat.customerName !== customerName) {
+        chat.customerName = customerName;
+        needsSave = true;
+      }
+      if (cleanEmail && cleanEmail !== 'visitor@apexbank.com' && chat.customerEmail !== cleanEmail) {
+        chat.customerEmail = cleanEmail;
+        needsSave = true;
+      }
+      if (needsSave) {
+        this.saveChatsLocal();
+        setDoc(doc(db, 'support_chats', chat.id), cleanFirestoreData(chat), { merge: true }).catch(() => {});
+      }
     }
     return chat;
   }
@@ -723,7 +762,7 @@ class BankStore {
     if (!chat) throw new Error('Chat session not found');
 
     const msg: SupportMessage = {
-      id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+      id: `msg_${Date.now()}_${Math.random().toString(36).substr(2, 6)}`,
       chatId,
       senderId,
       senderRole,
@@ -748,9 +787,15 @@ class BankStore {
     this.chats.set(chatId, chat);
     this.saveChatsLocal();
 
-    // Sync message & chat update to Firestore
-    setDoc(doc(db, 'support_messages', msg.id), msg).catch(() => {});
-    setDoc(doc(db, 'support_chats', chatId), chat, { merge: true }).catch(() => {});
+    // Sync message & chat update to Firestore with sanitized payload (CRITICAL: removes undefined)
+    const cleanMsg = cleanFirestoreData(msg);
+    const cleanChat = cleanFirestoreData(chat);
+    setDoc(doc(db, 'support_messages', msg.id), cleanMsg).catch(err => {
+      console.error('Failed to sync support message to Firestore:', err);
+    });
+    setDoc(doc(db, 'support_chats', chatId), cleanChat, { merge: true }).catch(err => {
+      console.error('Failed to sync support chat to Firestore:', err);
+    });
 
     return msg;
   }

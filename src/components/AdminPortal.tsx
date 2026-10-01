@@ -53,6 +53,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
   const [reserve, setReserve] = useState<BankReserve>(bankStore.getReserve());
   const [chats, setChats] = useState<SupportChat[]>([]);
   const [selectedChat, setSelectedChat] = useState<SupportChat | null>(null);
+  const selectedChatRef = useRef<SupportChat | null>(null);
   const [chatMessages, setChatMessages] = useState<SupportMessage[]>([]);
   const [adminReplyText, setAdminReplyText] = useState('');
   const [adminAttachments, setAdminAttachments] = useState<ChatAttachment[]>([]);
@@ -99,10 +100,16 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
     setReserve(bankStore.getReserve());
     const allChats = bankStore.getAllChats();
     setChats(allChats);
-    if (selectedChat) {
-      setChatMessages(bankStore.getMessages(selectedChat.id));
+
+    const cur = selectedChatRef.current;
+    if (cur) {
+      const refreshed = allChats.find(c => c.id === cur.id) || cur;
+      setSelectedChat(refreshed);
+      selectedChatRef.current = refreshed;
+      setChatMessages(bankStore.getMessages(refreshed.id));
     } else if (allChats.length > 0) {
       setSelectedChat(allChats[0]);
+      selectedChatRef.current = allChats[0];
       setChatMessages(bankStore.getMessages(allChats[0].id));
     }
   };
@@ -117,6 +124,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
 
   useEffect(() => {
     if (selectedChat) {
+      selectedChatRef.current = selectedChat;
       setChatMessages(bankStore.getMessages(selectedChat.id));
     }
   }, [selectedChat]);
@@ -230,10 +238,11 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
   // Reply in Chat
   const handleSendAdminReply = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!selectedChat || (!adminReplyText.trim() && adminAttachments.length === 0)) return;
+    const cur = selectedChatRef.current || selectedChat;
+    if (!cur || (!adminReplyText.trim() && adminAttachments.length === 0)) return;
 
     bankStore.sendMessage(
-      selectedChat.id,
+      cur.id,
       'apex-operator',
       'admin',
       'Apex Bank Management',
@@ -563,9 +572,14 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
             >
               <MessageSquare className="w-3.5 h-3.5" />
               <span>Live Support Desk</span>
-              {chats.length > 0 && (
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              )}
+              {chats.some(c => {
+                const ms = bankStore.getMessages(c.id);
+                return ms.length > 0 && ms[ms.length - 1].senderRole === 'customer';
+              }) ? (
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse shadow-sm shadow-emerald-400" />
+              ) : chats.length > 0 ? (
+                <span className="w-2 h-2 rounded-full bg-blue-400" />
+              ) : null}
             </button>
             <button
               onClick={() => setActiveTab('ai')}
@@ -1204,22 +1218,37 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
                   ) : (
                     chats.map(c => {
                       const isSelected = selectedChat?.id === c.id;
+                      const threadMsgs = bankStore.getMessages(c.id);
+                      const lastMsg = threadMsgs.length > 0 ? threadMsgs[threadMsgs.length - 1] : null;
+                      const isCustomerWaiting = lastMsg && lastMsg.senderRole === 'customer';
+
                       return (
                         <div
                           key={c.id}
-                          onClick={() => setSelectedChat(c)}
-                          className={`p-4 cursor-pointer transition-colors ${
-                            isSelected ? 'bg-blue-900/40 border-l-4 border-blue-500' : 'hover:bg-slate-850'
+                          onClick={() => {
+                            setSelectedChat(c);
+                            selectedChatRef.current = c;
+                            setChatMessages(bankStore.getMessages(c.id));
+                          }}
+                          className={`p-4 cursor-pointer transition-colors relative ${
+                            isSelected ? 'bg-blue-900/40 border-l-4 border-blue-500' : 'hover:bg-slate-800/60'
                           }`}
                         >
                           <div className="flex justify-between items-start mb-1">
-                            <p className="font-bold text-white text-xs">{c.customerName}</p>
+                            <div className="flex items-center gap-1.5">
+                              <p className="font-bold text-white text-xs">{c.customerName}</p>
+                              {isCustomerWaiting && (
+                                <span className="px-1.5 py-0.5 rounded bg-emerald-500/20 text-emerald-400 text-[8px] font-black uppercase tracking-wider animate-pulse border border-emerald-500/30">
+                                  Customer Message
+                                </span>
+                              )}
+                            </div>
                             <span className="text-[10px] text-slate-500">
                               {new Date(c.updatedAt).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
                             </span>
                           </div>
-                          <p className="text-[11px] text-slate-400 truncate">{c.lastMessage}</p>
-                          <p className="text-[10px] text-blue-400 mt-1">{c.customerEmail}</p>
+                          <p className="text-[11px] text-slate-300 truncate">{c.lastMessage}</p>
+                          <p className="text-[10px] text-blue-400 mt-1 font-mono truncate">{c.customerEmail}</p>
                         </div>
                       );
                     })

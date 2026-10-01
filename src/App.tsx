@@ -118,15 +118,17 @@ export default function App() {
         defaultMode={authModalMode}
       />
 
-      {/* 24/7 Support Chat Widget */}
-      <SupportChatWidget
-        currentUserId={currentUser ? currentUser.uid : 'guest-visitor'}
-        currentUserEmail={currentUser ? currentUser.email : 'visitor@apexbank.com'}
-        currentUserName={currentUser ? currentUser.displayName : 'Guest Visitor'}
-        isOpenControlled={supportChatOpen}
-        onOpenControlled={() => setSupportChatOpen(true)}
-        onCloseControlled={() => setSupportChatOpen(false)}
-      />
+      {/* 24/7 Support Chat Widget for Visitors & Customers */}
+      {(!currentUser || currentUser.role !== 'admin') && (
+        <SupportChatWidget
+          currentUserId={currentUser ? currentUser.uid : 'guest-visitor'}
+          currentUserEmail={currentUser ? currentUser.email : 'visitor@apexbank.com'}
+          currentUserName={currentUser ? currentUser.displayName : 'Guest Visitor'}
+          isOpenControlled={supportChatOpen}
+          onOpenControlled={() => setSupportChatOpen(true)}
+          onCloseControlled={() => setSupportChatOpen(false)}
+        />
+      )}
     </div>
   );
 }
