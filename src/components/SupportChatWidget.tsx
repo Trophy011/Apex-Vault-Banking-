@@ -8,12 +8,15 @@ import {
   Paperclip,
   Image as ImageIcon,
   CheckCircle2,
-  Lock
+  Lock,
+  Maximize2,
+  Minimize2,
+  FolderOpen
 } from 'lucide-react';
 import { bankStore } from '../lib/bankStore.ts';
 import { SupportChat, SupportMessage, ChatAttachment } from '../lib/types.ts';
 import { processFileForChat } from '../lib/fileUtils.ts';
-import { ChatAttachmentView } from './ChatAttachmentView.tsx';
+import { ChatAttachmentView, SharedMediaGallery } from './ChatAttachmentView.tsx';
 
 interface SupportChatWidgetProps {
   currentUserId?: string;
@@ -49,6 +52,8 @@ export const SupportChatWidget: React.FC<SupportChatWidgetProps> = ({
   const [pendingAttachments, setPendingAttachments] = useState<ChatAttachment[]>([]);
   const [isProcessingFile, setIsProcessingFile] = useState(false);
   const [unreadCount, setUnreadCount] = useState(0);
+  const [isFullScreen, setIsFullScreen] = useState(true);
+  const [showMediaGallery, setShowMediaGallery] = useState(false);
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -170,9 +175,11 @@ export const SupportChatWidget: React.FC<SupportChatWidgetProps> = ({
 
   return (
     <div className={`fixed z-[9999] pointer-events-auto transition-all duration-300 ${
-      isOpen
-        ? 'bottom-3 right-3 sm:bottom-6 sm:right-6 max-w-[calc(100vw-1.5rem)]'
-        : 'bottom-20 right-3 sm:bottom-24 sm:right-6 max-w-[calc(100vw-1.5rem)]'
+      !isOpen
+        ? 'bottom-20 right-3 sm:bottom-24 sm:right-6 max-w-[calc(100vw-1.5rem)]'
+        : isFullScreen
+        ? 'inset-0 w-full h-full'
+        : 'bottom-3 right-3 sm:bottom-6 sm:right-6 max-w-[calc(100vw-1.5rem)]'
     }`}>
       {/* Hidden File Inputs */}
       <input
@@ -218,10 +225,14 @@ export const SupportChatWidget: React.FC<SupportChatWidgetProps> = ({
 
       {/* Chat Window Panel (when open) */}
       {isOpen && (
-        <div className="w-[360px] sm:w-[410px] h-[540px] sm:h-[600px] bg-white rounded-3xl shadow-2xl border border-slate-200/90 flex flex-col overflow-hidden animate-in fade-in slide-in-from-bottom-4 duration-300">
+        <div className={`bg-white shadow-2xl border border-slate-200/90 flex flex-col overflow-hidden animate-in fade-in duration-300 ${
+          isFullScreen
+            ? 'w-full h-full rounded-none'
+            : 'w-[360px] sm:w-[440px] h-[560px] sm:h-[620px] rounded-3xl slide-in-from-bottom-4'
+        }`}>
           
           {/* Header */}
-          <div className="p-4 bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 text-white flex items-center justify-between shrink-0 shadow-sm">
+          <div className="p-3.5 sm:p-4 bg-gradient-to-r from-slate-900 via-blue-950 to-indigo-950 text-white flex items-center justify-between shrink-0 shadow-sm">
             <div className="flex items-center gap-3">
               <div className="relative">
                 <div className="w-10 h-10 rounded-2xl bg-gradient-to-tr from-amber-400 to-blue-600 flex items-center justify-center font-black text-sm text-white shadow-md">
@@ -243,13 +254,43 @@ export const SupportChatWidget: React.FC<SupportChatWidgetProps> = ({
               </div>
             </div>
 
-            <button
-              onClick={handleClose}
-              className="p-1.5 rounded-full hover:bg-white/10 text-slate-300 hover:text-white transition-colors cursor-pointer"
-              title="Minimize chat"
-            >
-              <X className="w-5 h-5" />
-            </button>
+            <div className="flex items-center gap-1">
+              {/* View Shared Files & Docs Button */}
+              <button
+                type="button"
+                onClick={() => setShowMediaGallery(true)}
+                className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-xl bg-white/10 hover:bg-white/20 text-blue-200 hover:text-white text-xs font-semibold transition-colors cursor-pointer mr-1"
+                title="View all shared photos and documents in this chat"
+              >
+                <FolderOpen className="w-4 h-4 text-blue-300" />
+                <span className="hidden sm:inline">Files</span>
+                {messages.some(m => m.attachments && m.attachments.length > 0) && (
+                  <span className="px-1.5 py-0.2 bg-blue-500/40 text-blue-200 rounded-full text-[10px] font-bold">
+                    {messages.reduce((acc, m) => acc + (m.attachments?.length || 0), 0)}
+                  </span>
+                )}
+              </button>
+
+              {/* Fullscreen Toggle */}
+              <button
+                type="button"
+                onClick={() => setIsFullScreen(!isFullScreen)}
+                className="p-1.5 rounded-full hover:bg-white/10 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                title={isFullScreen ? "Exit Full Screen" : "Full Screen Support"}
+              >
+                {isFullScreen ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
+              </button>
+
+              {/* Close Button */}
+              <button
+                type="button"
+                onClick={handleClose}
+                className="p-1.5 rounded-full hover:bg-white/10 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                title="Minimize chat"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
           </div>
 
           {/* Sub-Header Notice */}
@@ -419,6 +460,14 @@ export const SupportChatWidget: React.FC<SupportChatWidgetProps> = ({
 
         </div>
       )}
+
+      {/* Shared Media & Documents Gallery Drawer */}
+      <SharedMediaGallery
+        messages={messages}
+        isOpen={showMediaGallery}
+        onClose={() => setShowMediaGallery(false)}
+        title="My Support Files & Documents"
+      />
     </div>
   );
 };

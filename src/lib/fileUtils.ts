@@ -8,7 +8,7 @@ export function formatFileSize(bytes: number): string {
 }
 
 // Resizes image if necessary to prevent oversized Firestore documents
-function compressImage(file: File, maxDim = 1280, quality = 0.85): Promise<string> {
+function compressImage(file: File, maxDim = 1024, quality = 0.8): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = (e) => {
@@ -48,6 +48,26 @@ function compressImage(file: File, maxDim = 1280, quality = 0.85): Promise<strin
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
+}
+
+// Convert base64 data URL to Blob URL for clean in-app iframe/object viewing
+export function createBlobUrlFromDataUrl(dataUrl: string): string {
+  try {
+    if (!dataUrl || !dataUrl.startsWith('data:')) return dataUrl;
+    const parts = dataUrl.split(',');
+    if (parts.length < 2) return dataUrl;
+    const byteString = atob(parts[1]);
+    const mimeString = parts[0].split(':')[1].split(';')[0];
+    const ab = new ArrayBuffer(byteString.length);
+    const ia = new Uint8Array(ab);
+    for (let i = 0; i < byteString.length; i++) {
+      ia[i] = byteString.charCodeAt(i);
+    }
+    const blob = new Blob([ab], { type: mimeString });
+    return URL.createObjectURL(blob);
+  } catch {
+    return dataUrl;
+  }
 }
 
 // Read arbitrary file (pictures or documents) as Base64 data URL

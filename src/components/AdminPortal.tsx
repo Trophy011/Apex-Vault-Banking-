@@ -10,7 +10,7 @@ import {
 } from '../lib/types.ts';
 import { bankStore, ADMIN_EMAIL, INITIAL_VAULT_BALANCE } from '../lib/bankStore.ts';
 import { ReceiptModal } from './ReceiptModal.tsx';
-import { ChatAttachmentView } from './ChatAttachmentView.tsx';
+import { ChatAttachmentView, SharedMediaGallery } from './ChatAttachmentView.tsx';
 import { processFileForChat, formatFileSize } from '../lib/fileUtils.ts';
 import {
   Building2,
@@ -39,7 +39,13 @@ import {
   ArrowLeft,
   Paperclip,
   Image as ImageIcon,
-  Loader2
+  Loader2,
+  Maximize2,
+  Minimize2,
+  Eye,
+  Download,
+  Images,
+  FolderOpen
 } from 'lucide-react';
 
 interface AdminPortalProps {
@@ -62,6 +68,10 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
   const adminImageInputRef = useRef<HTMLInputElement>(null);
   const [selectedTxReceipt, setSelectedTxReceipt] = useState<BankTransaction | null>(null);
   const chatBottomRef = useRef<HTMLDivElement>(null);
+
+  // Full-Screen Live Support & Media Vault for Admin
+  const [isSupportFullScreen, setIsSupportFullScreen] = useState(true);
+  const [showMediaGallery, setShowMediaGallery] = useState(false);
 
   // Search filter
   const [searchQuery, setSearchQuery] = useState('');
@@ -1196,15 +1206,68 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
 
         {/* SUPPORT LIVE CHAT DESK */}
         {activeTab === 'support' && (
-          <div className="space-y-6">
-            <div>
-              <h2 className="text-2xl font-bold text-white">Customer Support Live Desk</h2>
-              <p className="text-xs text-slate-400">
-                Directly receive and respond to real-time inquiries from all bank users
-              </p>
+          <div className="space-y-4">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <h2 className="text-2xl font-bold text-white flex items-center gap-2">
+                  <span>Customer Support Live Desk</span>
+                  <span className="px-2 py-0.5 rounded-full bg-emerald-500/20 text-emerald-400 text-xs font-bold border border-emerald-500/30">
+                    Node #021000089 Live
+                  </span>
+                </h2>
+                <p className="text-xs text-slate-400">
+                  Directly receive and respond to real-time inquiries, pictures, and documents from all bank users
+                </p>
+              </div>
+
+              {/* Full Screen Toggle Button */}
+              <button
+                type="button"
+                onClick={() => setIsSupportFullScreen(!isSupportFullScreen)}
+                className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs transition-all shadow-md cursor-pointer border border-slate-700 active:scale-95"
+                title={isSupportFullScreen ? "Exit Full Screen Mode" : "Expand Live Support to Full Screen"}
+              >
+                {isSupportFullScreen ? (
+                  <>
+                    <Minimize2 className="w-4 h-4 text-amber-400" />
+                    <span>Exit Full Screen</span>
+                  </>
+                ) : (
+                  <>
+                    <Maximize2 className="w-4 h-4 text-blue-400" />
+                    <span>Full Screen Support</span>
+                  </>
+                )}
+              </button>
             </div>
 
-            <div className="flex flex-col lg:grid lg:grid-cols-12 gap-0 lg:gap-6 h-[540px] sm:h-[600px] bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-800 overflow-hidden shadow-xl">
+            <div className={`transition-all duration-300 ${
+              isSupportFullScreen
+                ? 'fixed inset-0 z-50 bg-slate-950 p-4 sm:p-6 flex flex-col h-screen overflow-hidden'
+                : 'flex flex-col lg:grid lg:grid-cols-12 gap-0 lg:gap-6 h-[calc(100vh-210px)] min-h-[640px] bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-800 overflow-hidden shadow-xl'
+            }`}>
+              {/* Full Screen Mode Top Exit Bar */}
+              {isSupportFullScreen && (
+                <div className="flex items-center justify-between pb-3 mb-2 border-b border-slate-800 shrink-0">
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-amber-500 to-blue-600 flex items-center justify-center font-black text-xs text-white">
+                      A
+                    </div>
+                    <div>
+                      <span className="font-extrabold text-sm text-white">APEX CENTRAL CONCIERGE DESK</span>
+                      <span className="text-[10px] text-slate-400 ml-2 font-mono">Full-Screen Operations Workstation</span>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => setIsSupportFullScreen(false)}
+                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-amber-400 font-bold text-xs transition-all cursor-pointer border border-slate-700"
+                  >
+                    <Minimize2 className="w-4 h-4" />
+                    <span>Exit Full Screen</span>
+                  </button>
+                </div>
+              )}
               {/* Chat Threads list */}
               <div className={`lg:col-span-4 border-r border-slate-800 flex flex-col ${selectedChat ? 'hidden lg:flex' : 'flex'} h-full`}>
                 <div className="p-4 border-b border-slate-800 text-xs font-bold uppercase tracking-wider text-slate-400">
@@ -1274,9 +1337,25 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
                           <p className="text-[10px] sm:text-[11px] text-slate-400 truncate">{selectedChat.customerEmail}</p>
                         </div>
                       </div>
-                      <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-[9px] sm:text-[10px] font-bold shrink-0">
-                        CONNECTED
-                      </span>
+                      <div className="flex items-center gap-2 shrink-0">
+                        {/* View All Pictures & Documents Button */}
+                        <button
+                          type="button"
+                          onClick={() => setShowMediaGallery(true)}
+                          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-blue-600/20 hover:bg-blue-600/30 text-blue-400 hover:text-blue-300 border border-blue-500/40 text-xs font-bold transition-all cursor-pointer shadow-sm"
+                          title="View all shared photos and documents from this client"
+                        >
+                          <FolderOpen className="w-4 h-4 text-blue-400" />
+                          <span className="hidden sm:inline">Pictures & Docs</span>
+                          <span className="px-1.5 py-0.2 bg-blue-500 text-white rounded-full text-[10px] font-extrabold">
+                            {chatMessages.reduce((acc, m) => acc + (m.attachments?.length || 0), 0)}
+                          </span>
+                        </button>
+
+                        <span className="px-2 py-0.5 sm:px-2.5 sm:py-1 bg-emerald-500/20 text-emerald-400 rounded-full text-[9px] sm:text-[10px] font-bold shrink-0">
+                          CONNECTED
+                        </span>
+                      </div>
                     </div>
 
                     {/* Hidden Admin File Inputs */}
@@ -1462,6 +1541,14 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
                 )}
               </div>
             </div>
+
+            {/* Shared Pictures & Documents Gallery Drawer for Admin */}
+            <SharedMediaGallery
+              messages={chatMessages}
+              isOpen={showMediaGallery}
+              onClose={() => setShowMediaGallery(false)}
+              title={`Customer Verification & Documents: ${selectedChat?.customerName || 'Client'}`}
+            />
           </div>
         )}
 
