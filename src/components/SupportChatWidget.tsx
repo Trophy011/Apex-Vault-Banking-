@@ -10,12 +10,14 @@ import {
   Lock,
   FolderOpen,
   ArrowDown,
+  ArrowLeft,
   Sparkles,
   Zap,
   Clock,
   ChevronDown
 } from 'lucide-react';
 import { bankStore } from '../lib/bankStore.ts';
+import { navHistory } from '../lib/navHistory.ts';
 import { SupportChat, SupportMessage, ChatAttachment } from '../lib/types.ts';
 import { processFileForChat } from '../lib/fileUtils.ts';
 import { ChatAttachmentView, SharedMediaGallery } from './ChatAttachmentView.tsx';
@@ -62,6 +64,26 @@ export const SupportChatWidget: React.FC<SupportChatWidgetProps> = ({
   const imageInputRef = useRef<HTMLInputElement>(null);
   const chatIdRef = useRef<string | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const touchStartY = useRef<number | null>(null);
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartY.current = e.touches[0].clientY;
+  };
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (touchStartY.current !== null) {
+      const diff = e.touches[0].clientY - touchStartY.current;
+      // If pulled down by > 85px from near top of messages container, smoothly dismiss
+      if (diff > 85 && (!messagesContainerRef.current || messagesContainerRef.current.scrollTop <= 5)) {
+        touchStartY.current = null;
+        handleSmoothClose();
+      }
+    }
+  };
+
+  const handleTouchEnd = () => {
+    touchStartY.current = null;
+  };
 
   // Sync internal state when external controlled prop changes with smooth animation
   useEffect(() => {
@@ -94,6 +116,23 @@ export const SupportChatWidget: React.FC<SupportChatWidgetProps> = ({
       if (onCloseControlled) onCloseControlled();
     }, 320);
   };
+
+  // Browser History Navigation (Allows browser Back button, mouse back, and mobile gestures to smoothly exit without getting stuck)
+  useEffect(() => {
+    if (isRendered && !isClosing) {
+      navHistory.pushModal('support_chat', () => handleSmoothClose());
+    } else {
+      navHistory.closeModal('support_chat');
+    }
+  }, [isRendered, isClosing]);
+
+  useEffect(() => {
+    if (showMediaGallery) {
+      navHistory.pushModal('support_gallery', () => setShowMediaGallery(false));
+    } else {
+      navHistory.closeModal('support_gallery');
+    }
+  }, [showMediaGallery]);
 
   // Keyboard shortcut: Escape to close
   useEffect(() => {
@@ -295,6 +334,9 @@ export const SupportChatWidget: React.FC<SupportChatWidgetProps> = ({
       {/* ============================================================== */}
       {isRendered && (
         <div
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
           className={`fixed inset-0 w-screen h-screen h-[100dvh] z-[9999] bg-slate-950 text-slate-100 flex flex-col overflow-hidden gpu-accelerated ${
             isClosing ? 'animate-slide-down-full' : 'animate-slide-up-full'
           }`}
@@ -303,14 +345,35 @@ export const SupportChatWidget: React.FC<SupportChatWidgetProps> = ({
             WebkitOverflowScrolling: 'touch',
           }}
         >
+          {/* Mobile Drag Indicator / Pull-to-Dismiss Bar */}
+          <div
+            onClick={handleSmoothClose}
+            className="w-full flex justify-center py-1 sm:hidden cursor-pointer bg-slate-950 hover:bg-slate-900 transition-colors select-none shrink-0"
+            title="Swipe or tap down to close"
+          >
+            <div className="w-10 h-1 rounded-full bg-slate-700 active:bg-blue-400" />
+          </div>
+
           {/* Top Global Executive Header */}
-          <header className="p-3.5 sm:p-4.5 bg-gradient-to-r from-slate-950 via-blue-950/90 to-slate-950 border-b border-slate-800/90 flex items-center justify-between shrink-0 shadow-lg select-none">
-            <div className="flex items-center gap-3 min-w-0">
+          <header className="p-3 sm:p-4.5 bg-gradient-to-r from-slate-950 via-blue-950/90 to-slate-950 border-b border-slate-800/90 flex items-center justify-between shrink-0 shadow-lg select-none gap-2">
+            <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
+              {/* Prominent Back Button */}
+              <button
+                type="button"
+                onClick={handleSmoothClose}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 hover:bg-slate-850 text-slate-200 hover:text-white border border-slate-700/90 text-xs font-bold transition-all cursor-pointer shadow-sm active:scale-95 shrink-0 group"
+                title="Back to Banking (Esc or Browser Back)"
+                aria-label="Back to Banking"
+              >
+                <ArrowLeft className="w-4 h-4 text-blue-400 group-hover:-translate-x-0.5 transition-transform" />
+                <span>Back</span>
+              </button>
+
               <div className="relative shrink-0">
-                <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-amber-400 via-blue-600 to-indigo-600 flex items-center justify-center font-black text-sm text-white shadow-md shadow-blue-950">
+                <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-2xl bg-gradient-to-tr from-amber-400 via-blue-600 to-indigo-600 flex items-center justify-center font-black text-sm text-white shadow-md shadow-blue-950">
                   A
                 </div>
-                <span className="absolute -bottom-0.5 -right-0.5 w-3.5 h-3.5 bg-emerald-400 border-2 border-slate-950 rounded-full" />
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 bg-emerald-400 border-2 border-slate-950 rounded-full" />
               </div>
               <div className="min-w-0">
                 <div className="flex items-center gap-2">

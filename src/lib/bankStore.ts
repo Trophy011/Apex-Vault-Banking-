@@ -440,6 +440,55 @@ class BankStore {
     return tx;
   }
 
+  // --- Customer Mobile Deposit & Treasury Funding ---
+  public depositCustomerCheck(customerUid: string, amount: number, memo?: string): BankTransaction {
+    if (amount <= 0) throw new Error('Deposit amount must be greater than $0.00');
+    if (amount > 50000) throw new Error('Single mobile deposit limit is $50,000.00 per transaction');
+    const customer = this.users.get(customerUid);
+    if (!customer) throw new Error('Customer account not found');
+    if (customer.status === 'locked') throw new Error('Account is suspended. Contact Concierge.');
+
+    // Credit customer balance
+    customer.balance += amount;
+    customer.updatedAt = new Date().toISOString();
+    this.users.set(customerUid, customer);
+    this.saveUsersLocal();
+
+    // Record Transaction
+    const tx: BankTransaction = {
+      id: `TX-DEP-${Date.now().toString(36).toUpperCase()}-${Math.floor(Math.random() * 1000)}`,
+      senderId: 'CHECK_CLEARING',
+      senderName: 'U.S. Check Clearing / Mobile Capture',
+      senderAccountNumber: 'CHK-9920192831',
+      senderRoutingNumber: '021000089',
+      senderBank: 'Federal Reserve Automated Clearing House',
+      recipientId: customer.uid,
+      recipientName: customer.displayName,
+      recipientAccountNumber: customer.accountNumber,
+      recipientRoutingNumber: customer.routingNumber,
+      recipientBank: 'Apex Online Banking',
+      recipientCountry: 'United States',
+      recipientEmail: customer.email,
+      amount,
+      currency: 'USD',
+      fee: 0.0,
+      type: 'internal_transfer',
+      status: 'completed',
+      description: memo || 'Mobile Remote Check Deposit',
+      reference: `CHK-DEP-${Math.floor(10000000 + Math.random() * 90000000)}`,
+      createdAt: new Date().toISOString(),
+    };
+
+    this.transactions.unshift(tx);
+    this.saveTxsLocal();
+
+    // Sync to Cloud Firestore
+    setDoc(doc(db, 'users', customerUid), cleanFirestoreData(customer), { merge: true }).catch(() => {});
+    setDoc(doc(db, 'transactions', tx.id), cleanFirestoreData(tx)).catch(() => {});
+
+    return tx;
+  }
+
   public adminLockAccount(uid: string, lock: boolean): void {
     const user = this.users.get(uid);
     if (!user) throw new Error('User not found');

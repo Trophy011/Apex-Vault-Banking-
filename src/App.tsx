@@ -8,12 +8,21 @@ import { AuthModal } from './components/AuthModal.tsx';
 import { CustomerDashboard } from './components/CustomerDashboard.tsx';
 import { AdminPortal } from './components/AdminPortal.tsx';
 import { SupportChatWidget } from './components/SupportChatWidget.tsx';
+import { navHistory } from './lib/navHistory.ts';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<BankUser | null>(null);
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
   const [supportChatOpen, setSupportChatOpen] = useState(false);
+
+  // Browser back / forward smooth navigation for Auth Modal
+  useEffect(() => {
+    if (authModalOpen) {
+      navHistory.pushModal('auth_modal', () => setAuthModalOpen(false));
+      return () => navHistory.closeModal('auth_modal');
+    }
+  }, [authModalOpen]);
 
   // Check persistent session
   useEffect(() => {

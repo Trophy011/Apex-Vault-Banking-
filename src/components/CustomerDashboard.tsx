@@ -6,6 +6,8 @@ import {
 import { bankStore } from '../lib/bankStore.ts';
 import { COUNTRIES_AND_BANKS, CountryInfo } from '../lib/countriesAndBanks.ts';
 import { ReceiptModal } from './ReceiptModal.tsx';
+import { DepositModal } from './DepositModal.tsx';
+import { navHistory } from '../lib/navHistory.ts';
 import {
   Bell,
   Share2,
@@ -16,6 +18,7 @@ import {
   Plus,
   ArrowUpRight,
   ArrowDownLeft,
+  ArrowLeft,
   Globe2,
   Zap,
   KeyRound,
@@ -81,6 +84,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
   const [showNotifications, setShowNotifications] = useState(false);
   const [showAccountDetails, setShowAccountDetails] = useState<'checking' | 'savings' | 'card' | null>(null);
   const [selectedTxReceipt, setSelectedTxReceipt] = useState<BankTransaction | null>(null);
+  const [showDepositModal, setShowDepositModal] = useState(false);
 
   // Platinum Card Generator & Management for Every User
   const [showCardSecurity, setShowCardSecurity] = useState(false);
@@ -171,6 +175,125 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
     });
     return () => unsubscribe();
   }, [user.uid]);
+
+  // Browser Back/Forward & Navigation History Integration
+  useEffect(() => {
+    if (showAccountDetails) {
+      navHistory.pushModal(`account_${showAccountDetails}`, () => setShowAccountDetails(null));
+      return () => navHistory.closeModal(`account_${showAccountDetails}`);
+    }
+  }, [showAccountDetails]);
+
+  useEffect(() => {
+    if (showDepositModal) {
+      navHistory.pushModal('deposit_modal', () => {
+        setShowDepositModal(false);
+        setActiveBottomTab('accounts');
+      });
+      return () => navHistory.closeModal('deposit_modal');
+    }
+  }, [showDepositModal]);
+
+  useEffect(() => {
+    if (showInternalTransfer) {
+      navHistory.pushModal('internal_transfer', () => {
+        setShowInternalTransfer(false);
+        setActiveBottomTab('accounts');
+      });
+      return () => navHistory.closeModal('internal_transfer');
+    }
+  }, [showInternalTransfer]);
+
+  useEffect(() => {
+    if (showInternationalWire) {
+      navHistory.pushModal('international_wire', () => setShowInternationalWire(false));
+      return () => navHistory.closeModal('international_wire');
+    }
+  }, [showInternationalWire]);
+
+  useEffect(() => {
+    if (showNotifications) {
+      navHistory.pushModal('notifications', () => setShowNotifications(false));
+      return () => navHistory.closeModal('notifications');
+    }
+  }, [showNotifications]);
+
+  useEffect(() => {
+    if (showRewardsModal) {
+      navHistory.pushModal('rewards', () => setShowRewardsModal(false));
+      return () => navHistory.closeModal('rewards');
+    }
+  }, [showRewardsModal]);
+
+  useEffect(() => {
+    if (showFicoModal) {
+      navHistory.pushModal('fico', () => setShowFicoModal(false));
+      return () => navHistory.closeModal('fico');
+    }
+  }, [showFicoModal]);
+
+  useEffect(() => {
+    if (showOpenAccountModal) {
+      navHistory.pushModal('open_account', () => {
+        setShowOpenAccountModal(false);
+        setActiveBottomTab('accounts');
+      });
+      return () => navHistory.closeModal('open_account');
+    }
+  }, [showOpenAccountModal]);
+
+  useEffect(() => {
+    if (showProfileEdit) {
+      navHistory.pushModal('profile_edit', () => {
+        setShowProfileEdit(false);
+        setActiveBottomTab('accounts');
+      });
+      return () => navHistory.closeModal('profile_edit');
+    }
+  }, [showProfileEdit]);
+
+  useEffect(() => {
+    if (showPinSetup) {
+      navHistory.pushModal('pin_setup', () => setShowPinSetup(false));
+      return () => navHistory.closeModal('pin_setup');
+    }
+  }, [showPinSetup]);
+
+  useEffect(() => {
+    if (selectedTxReceipt) {
+      navHistory.pushModal('receipt_modal', () => setSelectedTxReceipt(null));
+      return () => navHistory.closeModal('receipt_modal');
+    }
+  }, [selectedTxReceipt]);
+
+  useEffect(() => {
+    if (showCardSecurity) {
+      navHistory.pushModal('card_security', () => setShowCardSecurity(false));
+      return () => navHistory.closeModal('card_security');
+    }
+  }, [showCardSecurity]);
+
+  // Tab & Browser History Synchronization (Enables smooth back/forward without getting stuck)
+  useEffect(() => {
+    const handleTabChange = (tab: string) => {
+      if (['accounts', 'deposit', 'transfer', 'explore', 'menu'].includes(tab)) {
+        setActiveBottomTab(tab as any);
+        if (tab === 'deposit') setShowDepositModal(true);
+        else if (tab === 'transfer') setShowInternalTransfer(true);
+        else if (tab === 'explore') setShowOpenAccountModal(true);
+        else if (tab === 'menu') setShowProfileEdit(true);
+        else if (tab === 'accounts') {
+          setShowDepositModal(false);
+          setShowInternalTransfer(false);
+          setShowOpenAccountModal(false);
+          setShowProfileEdit(false);
+          setShowAccountDetails(null);
+        }
+      }
+    };
+    const unsub = navHistory.onTabChange(handleTabChange);
+    return () => unsub();
+  }, []);
 
   const copyToClipboard = (text: string, type: 'acc' | 'routing') => {
     navigator.clipboard.writeText(text);
@@ -676,7 +799,14 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
           
           {/* 1. ACCOUNTS (Active Red Tab matching Picture) */}
           <button
-            onClick={() => setActiveBottomTab('accounts')}
+            onClick={() => {
+              setActiveBottomTab('accounts');
+              setShowDepositModal(false);
+              setShowInternalTransfer(false);
+              setShowOpenAccountModal(false);
+              setShowProfileEdit(false);
+              navHistory.pushTab('accounts');
+            }}
             className="flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors"
           >
             <div className={`p-1 rounded-lg ${activeBottomTab === 'accounts' ? 'text-red-700' : 'text-slate-500'}`}>
@@ -691,14 +821,15 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
           <button
             onClick={() => {
               setActiveBottomTab('deposit');
-              alert('Mobile Deposit & Central Treasury wire funding portal active.');
+              setShowDepositModal(true);
+              navHistory.pushTab('deposit');
             }}
             className="flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors text-slate-500 hover:text-slate-900"
           >
-            <div className="p-1">
+            <div className={`p-1 rounded-lg ${activeBottomTab === 'deposit' ? 'text-blue-700' : 'text-slate-500'}`}>
               <ArrowDownLeft className="w-5 h-5" />
             </div>
-            <span className="text-[10px] font-semibold tracking-tight text-slate-600">
+            <span className={`text-[10px] font-semibold tracking-tight ${activeBottomTab === 'deposit' ? 'text-blue-700 font-extrabold' : 'text-slate-600'}`}>
               Deposit
             </span>
           </button>
@@ -708,13 +839,14 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
             onClick={() => {
               setActiveBottomTab('transfer');
               setShowInternalTransfer(true);
+              navHistory.pushTab('transfer');
             }}
             className="flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors text-slate-500 hover:text-blue-700"
           >
-            <div className="p-1">
+            <div className={`p-1 rounded-lg ${activeBottomTab === 'transfer' ? 'text-blue-700' : 'text-slate-500'}`}>
               <Zap className="w-5 h-5 text-blue-700" />
             </div>
-            <span className="text-[10px] font-semibold tracking-tight text-slate-600">
+            <span className={`text-[10px] font-semibold tracking-tight ${activeBottomTab === 'transfer' ? 'text-blue-700 font-extrabold' : 'text-slate-600'}`}>
               Pay & Transfer
             </span>
           </button>
@@ -724,13 +856,14 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
             onClick={() => {
               setActiveBottomTab('explore');
               setShowOpenAccountModal(true);
+              navHistory.pushTab('explore');
             }}
             className="flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors text-slate-500 hover:text-slate-900"
           >
-            <div className="p-1">
+            <div className={`p-1 rounded-lg ${activeBottomTab === 'explore' ? 'text-blue-700' : 'text-slate-500'}`}>
               <Compass className="w-5 h-5" />
             </div>
-            <span className="text-[10px] font-semibold tracking-tight text-slate-600">
+            <span className={`text-[10px] font-semibold tracking-tight ${activeBottomTab === 'explore' ? 'text-blue-700 font-extrabold' : 'text-slate-600'}`}>
               Explore
             </span>
           </button>
@@ -740,13 +873,14 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
             onClick={() => {
               setActiveBottomTab('menu');
               setShowProfileEdit(true);
+              navHistory.pushTab('menu');
             }}
             className="flex flex-col items-center justify-center gap-1 cursor-pointer transition-colors text-slate-500 hover:text-slate-900"
           >
-            <div className="p-1">
+            <div className={`p-1 rounded-lg ${activeBottomTab === 'menu' ? 'text-blue-700' : 'text-slate-500'}`}>
               <MenuIcon className="w-5 h-5" />
             </div>
-            <span className="text-[10px] font-semibold tracking-tight text-slate-600">
+            <span className={`text-[10px] font-semibold tracking-tight ${activeBottomTab === 'menu' ? 'text-blue-700 font-extrabold' : 'text-slate-600'}`}>
               Menu
             </span>
           </button>
@@ -779,8 +913,19 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in">
           <div className="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-2xl">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <h3 className="font-bold text-base text-slate-900">Apex Rewards® Balance</h3>
-              <button onClick={() => setShowRewardsModal(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowRewardsModal(false)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95"
+                  title="Back (Esc)"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </button>
+                <h3 className="font-bold text-base text-slate-900">Apex Rewards®</h3>
+              </div>
+              <button onClick={() => setShowRewardsModal(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700 cursor-pointer" title="Close">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -790,13 +935,10 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
               <p className="text-xs text-emerald-700 font-semibold mt-1">Cash Back on Everyday Platinum Spending</p>
             </div>
             <button
-              onClick={() => {
-                alert('Rewards automatically applied as credit statement balance.');
-                setShowRewardsModal(false);
-              }}
-              className="w-full py-3 bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm rounded-xl"
+              onClick={() => setShowRewardsModal(false)}
+              className="w-full py-3 bg-blue-700 hover:bg-blue-800 text-white font-bold text-sm rounded-xl cursor-pointer"
             >
-              Redeem to Everyday Checking
+              Close Rewards
             </button>
           </div>
         </div>
@@ -807,8 +949,19 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in">
           <div className="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-2xl text-center">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <h3 className="font-bold text-base text-slate-900">Credit Close-Up℠</h3>
-              <button onClick={() => setShowFicoModal(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowFicoModal(false)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95"
+                  title="Back (Esc)"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </button>
+                <h3 className="font-bold text-base text-slate-900">Credit Close-Up℠</h3>
+              </div>
+              <button onClick={() => setShowFicoModal(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700 cursor-pointer" title="Close">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -835,6 +988,15 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
           <div className="bg-white rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl my-auto">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
               <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowNotifications(false)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95 mr-0.5"
+                  title="Back to Dashboard (Esc)"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </button>
                 <div className="w-8 h-8 rounded-full bg-blue-100 text-blue-700 flex items-center justify-center">
                   <Bell className="w-4 h-4" />
                 </div>
@@ -845,7 +1007,8 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
               </div>
               <button
                 onClick={() => setShowNotifications(false)}
-                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors"
+                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 transition-colors cursor-pointer"
+                title="Close activity"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -935,18 +1098,28 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in overflow-y-auto">
           <div className="bg-white rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl my-auto">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold">
+              <div className="flex items-center gap-2 min-w-0">
+                <button
+                  type="button"
+                  onClick={() => setShowAccountDetails(null)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95 mr-0.5 shrink-0"
+                  title="Back to Dashboard (Esc)"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </button>
+                <div className="w-8 h-8 rounded-xl bg-blue-100 text-blue-700 flex items-center justify-center font-bold shrink-0">
                   <Landmark className="w-4 h-4" />
                 </div>
-                <div>
-                  <h3 className="font-bold text-base text-slate-900">Everyday Checking Details</h3>
-                  <p className="text-[11px] text-slate-500">Account #{user.accountNumber}</p>
+                <div className="min-w-0">
+                  <h3 className="font-bold text-base text-slate-900 truncate">Everyday Checking</h3>
+                  <p className="text-[11px] text-slate-500 truncate">Account #{user.accountNumber}</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowAccountDetails(null)}
-                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer shrink-0"
+                title="Close"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1032,18 +1205,28 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm animate-in fade-in overflow-y-auto">
           <div className="bg-white rounded-3xl p-6 max-w-md w-full space-y-5 shadow-2xl my-auto">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center">
+              <div className="flex items-center gap-2 min-w-0">
+                <button
+                  type="button"
+                  onClick={() => setShowAccountDetails(null)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95 mr-0.5 shrink-0"
+                  title="Back to Dashboard (Esc)"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </button>
+                <div className="w-8 h-8 rounded-xl bg-slate-900 text-white flex items-center justify-center shrink-0">
                   <CreditCard className="w-4 h-4" />
                 </div>
-                <div>
-                  <h3 className="font-bold text-base text-slate-900">Apex Platinum Card</h3>
-                  <p className="text-[11px] text-slate-500">Digital Virtual Card Management</p>
+                <div className="min-w-0">
+                  <h3 className="font-bold text-base text-slate-900 truncate">Apex Platinum Card</h3>
+                  <p className="text-[11px] text-slate-500 truncate">Digital Virtual Card</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowAccountDetails(null)}
-                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer shrink-0"
+                title="Close"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1202,18 +1385,28 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/75 backdrop-blur-sm animate-in fade-in overflow-y-auto">
           <div className="bg-white rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl my-auto">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold">
+              <div className="flex items-center gap-2 min-w-0">
+                <button
+                  type="button"
+                  onClick={() => setShowAccountDetails(null)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95 mr-0.5 shrink-0"
+                  title="Back to Dashboard (Esc)"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </button>
+                <div className="w-8 h-8 rounded-xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold shrink-0">
                   <PiggyBank className="w-4 h-4" />
                 </div>
-                <div>
-                  <h3 className="font-bold text-base text-slate-900">Way2Save® Savings Details</h3>
-                  <p className="text-[11px] text-slate-500">Account #9019283019</p>
+                <div className="min-w-0">
+                  <h3 className="font-bold text-base text-slate-900 truncate">Way2Save® Savings</h3>
+                  <p className="text-[11px] text-slate-500 truncate">Account #9019283019</p>
                 </div>
               </div>
               <button
                 onClick={() => setShowAccountDetails(null)}
-                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100"
+                className="p-1.5 rounded-full text-slate-400 hover:text-slate-700 hover:bg-slate-100 cursor-pointer shrink-0"
+                title="Close"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -1249,17 +1442,25 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in">
           <div className="bg-white rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <h3 className="font-bold text-base text-slate-900">Open a New Apex Account</h3>
-              <button onClick={() => setShowOpenAccountModal(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowOpenAccountModal(false)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95"
+                  title="Back to Dashboard (Esc)"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </button>
+                <h3 className="font-bold text-base text-slate-900">Open an Account</h3>
+              </div>
+              <button onClick={() => setShowOpenAccountModal(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700 cursor-pointer" title="Close">
                 <X className="w-5 h-5" />
               </button>
             </div>
             <div className="space-y-3">
               <div
-                onClick={() => {
-                  alert('High-Yield Certificate of Deposit setup selected. Contact concierge for rate locks.');
-                  setShowOpenAccountModal(false);
-                }}
+                onClick={() => setShowOpenAccountModal(false)}
                 className="p-3.5 border border-slate-200 hover:border-blue-500 rounded-2xl cursor-pointer hover:bg-blue-50/40 transition-all"
               >
                 <p className="font-bold text-sm text-slate-900">High-Yield CD (12 Months)</p>
@@ -1267,10 +1468,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
               </div>
 
               <div
-                onClick={() => {
-                  alert('Secondary Private Business Checking configured.');
-                  setShowOpenAccountModal(false);
-                }}
+                onClick={() => setShowOpenAccountModal(false)}
                 className="p-3.5 border border-slate-200 hover:border-blue-500 rounded-2xl cursor-pointer hover:bg-blue-50/40 transition-all"
               >
                 <p className="font-bold text-sm text-slate-900">Commercial Treasury Checking</p>
@@ -1278,10 +1476,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
               </div>
 
               <div
-                onClick={() => {
-                  alert('Pre-approved for Apex Infinite Sapphire Card with zero foreign exchange fees.');
-                  setShowOpenAccountModal(false);
-                }}
+                onClick={() => setShowOpenAccountModal(false)}
                 className="p-3.5 border border-slate-200 hover:border-blue-500 rounded-2xl cursor-pointer hover:bg-blue-50/40 transition-all"
               >
                 <p className="font-bold text-sm text-slate-900">Apex Infinite Credit Card</p>
@@ -1298,10 +1493,19 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
           <div className="bg-white rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
               <div className="flex items-center gap-2 text-blue-900">
-                <Zap className="w-5 h-5 text-blue-700" />
+                <button
+                  type="button"
+                  onClick={() => setShowInternalTransfer(false)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95 mr-1"
+                  title="Back to Dashboard (Esc)"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </button>
+                <Zap className="w-5 h-5 text-blue-700 shrink-0" />
                 <h3 className="font-bold text-base text-slate-900">Apex Instant Internal Transfer</h3>
               </div>
-              <button onClick={() => setShowInternalTransfer(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700">
+              <button onClick={() => setShowInternalTransfer(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700 cursor-pointer" title="Close">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -1387,10 +1591,19 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
           <div className="bg-white rounded-3xl p-6 max-w-lg w-full space-y-4 shadow-2xl my-auto">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
               <div className="flex items-center gap-2 text-indigo-950">
-                <Globe2 className="w-5 h-5 text-indigo-700" />
-                <h3 className="font-bold text-base text-slate-900">SWIFT International Wire Transfer</h3>
+                <button
+                  type="button"
+                  onClick={() => setShowInternationalWire(false)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95 mr-1"
+                  title="Back to Dashboard (Esc)"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </button>
+                <Globe2 className="w-5 h-5 text-indigo-700 shrink-0" />
+                <h3 className="font-bold text-base text-slate-900">SWIFT Wire Transfer</h3>
               </div>
-              <button onClick={() => setShowInternationalWire(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700">
+              <button onClick={() => setShowInternationalWire(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700 cursor-pointer" title="Close">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -1522,8 +1735,19 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in">
           <div className="bg-white rounded-3xl p-6 max-w-md w-full space-y-4 shadow-2xl">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <h3 className="font-bold text-base text-slate-900">Profile & Security Settings</h3>
-              <button onClick={() => setShowProfileEdit(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowProfileEdit(false)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95"
+                  title="Back (Esc)"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </button>
+                <h3 className="font-bold text-base text-slate-900">Profile & Security</h3>
+              </div>
+              <button onClick={() => setShowProfileEdit(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700 cursor-pointer" title="Close">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -1592,8 +1816,19 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in">
           <div className="bg-white rounded-3xl p-6 max-w-sm w-full space-y-4 shadow-2xl">
             <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <h3 className="font-bold text-base text-slate-900">4-Digit Security PIN</h3>
-              <button onClick={() => setShowPinSetup(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700">
+              <div className="flex items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => setShowPinSetup(false)}
+                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95"
+                  title="Back (Esc)"
+                >
+                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+                  <span>Back</span>
+                </button>
+                <h3 className="font-bold text-base text-slate-900">4-Digit Security PIN</h3>
+              </div>
+              <button onClick={() => setShowPinSetup(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700 cursor-pointer" title="Close">
                 <X className="w-5 h-5" />
               </button>
             </div>
@@ -1638,6 +1873,20 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
           </div>
         </div>
       )}
+
+      {/* MOBILE REMOTE CHECK DEPOSIT & TREASURY CLEARANCE MODAL */}
+      <DepositModal
+        user={user}
+        isOpen={showDepositModal}
+        onClose={() => {
+          setShowDepositModal(false);
+          setActiveBottomTab('accounts');
+        }}
+        onSuccessTx={tx => {
+          refreshData();
+          setSelectedTxReceipt(tx);
+        }}
+      />
 
       {/* OFFICIAL TRANSACTION RECEIPT MODAL */}
       <ReceiptModal

@@ -1,11 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { BankTransaction } from '../lib/types.ts';
+import { navHistory } from '../lib/navHistory.ts';
 import {
   X,
   Printer,
   Copy,
   Check,
   ArrowRight,
+  ArrowLeft,
   Info,
   Landmark,
   Download
@@ -18,6 +20,15 @@ interface ReceiptModalProps {
 
 export const ReceiptModal: React.FC<ReceiptModalProps> = ({ transaction, onClose }) => {
   const [copied, setCopied] = useState(false);
+
+  useEffect(() => {
+    if (transaction) {
+      navHistory.pushModal(`receipt_${transaction.id}`, onClose);
+      return () => {
+        navHistory.closeModal(`receipt_${transaction.id}`);
+      };
+    }
+  }, [transaction, onClose]);
 
   if (!transaction) return null;
 
@@ -152,8 +163,16 @@ export const ReceiptModal: React.FC<ReceiptModalProps> = ({ transaction, onClose
       <div className="receipt-print-wrapper fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-slate-950/80 backdrop-blur-sm animate-in fade-in duration-200 overflow-y-auto">
         <div className="relative w-full max-w-lg bg-white rounded-3xl shadow-2xl border border-slate-200 overflow-hidden flex flex-col text-slate-900 my-auto">
           
-          {/* Floating Close Button */}
-          <div className="absolute top-4 right-4 z-10 print-hide">
+          {/* Navigation Bar: Back & Close Buttons */}
+          <div className="flex items-center justify-between px-6 pt-5 pb-1 print-hide">
+            <button
+              onClick={onClose}
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-all cursor-pointer group active:scale-95"
+              title="Back to Dashboard (Esc or Browser Back)"
+            >
+              <ArrowLeft className="w-4 h-4 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
+              <span>Back</span>
+            </button>
             <button
               onClick={onClose}
               className="p-1.5 rounded-full bg-slate-100 hover:bg-slate-200 text-slate-600 transition-colors cursor-pointer"

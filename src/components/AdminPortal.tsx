@@ -11,6 +11,7 @@ import {
 import { bankStore, ADMIN_EMAIL, INITIAL_VAULT_BALANCE } from '../lib/bankStore.ts';
 import { ReceiptModal } from './ReceiptModal.tsx';
 import { ChatAttachmentView, SharedMediaGallery } from './ChatAttachmentView.tsx';
+import { navHistory } from '../lib/navHistory.ts';
 import { processFileForChat, formatFileSize } from '../lib/fileUtils.ts';
 import {
   Building2,
@@ -142,6 +143,68 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
   useEffect(() => {
     chatBottomRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [chatMessages]);
+
+  // Browser History Navigation (Enables smooth back/forward without getting stuck)
+  useEffect(() => {
+    if (activeTab === 'support' && isSupportFullScreen) {
+      navHistory.pushModal('admin_support_fullscreen', () => setIsSupportFullScreen(false));
+      return () => navHistory.closeModal('admin_support_fullscreen');
+    }
+  }, [activeTab, isSupportFullScreen]);
+
+  useEffect(() => {
+    if (showMediaGallery) {
+      navHistory.pushModal('admin_media_gallery', () => setShowMediaGallery(false));
+      return () => navHistory.closeModal('admin_media_gallery');
+    }
+  }, [showMediaGallery]);
+
+  useEffect(() => {
+    if (fundingUser) {
+      navHistory.pushModal('admin_funding', () => setFundingUser(null));
+      return () => navHistory.closeModal('admin_funding');
+    }
+  }, [fundingUser]);
+
+  useEffect(() => {
+    if (warningUser) {
+      navHistory.pushModal('admin_warning', () => setWarningUser(null));
+      return () => navHistory.closeModal('admin_warning');
+    }
+  }, [warningUser]);
+
+  useEffect(() => {
+    if (reversalTx) {
+      navHistory.pushModal('admin_reversal', () => setReversalTx(null));
+      return () => navHistory.closeModal('admin_reversal');
+    }
+  }, [reversalTx]);
+
+  useEffect(() => {
+    if (selectedTxReceipt) {
+      navHistory.pushModal('admin_receipt', () => setSelectedTxReceipt(null));
+      return () => navHistory.closeModal('admin_receipt');
+    }
+  }, [selectedTxReceipt]);
+
+  useEffect(() => {
+    if (selectedChat) {
+      navHistory.pushModal('admin_selected_chat', () => setSelectedChat(null));
+      return () => navHistory.closeModal('admin_selected_chat');
+    }
+  }, [selectedChat]);
+
+  // Admin Tab History Navigation
+  useEffect(() => {
+    const handleAdminTabChange = (tab: string) => {
+      const cleanTab = tab.replace('admin-', '');
+      if (['overview', 'customers', 'transactions', 'support', 'ai'].includes(cleanTab)) {
+        setActiveTab(cleanTab as any);
+      }
+    };
+    const unsub = navHistory.onTabChange(handleAdminTabChange);
+    return () => unsub();
+  }, []);
 
   // Fund Customer
   const handleFundSubmit = (e: React.FormEvent) => {
