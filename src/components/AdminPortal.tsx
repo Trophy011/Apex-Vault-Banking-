@@ -1243,8 +1243,8 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
 
             <div className={`transition-all duration-300 ${
               isSupportFullScreen
-                ? 'fixed inset-0 z-50 bg-slate-950 p-4 sm:p-6 flex flex-col h-screen overflow-hidden'
-                : 'flex flex-col lg:grid lg:grid-cols-12 gap-0 lg:gap-6 h-[calc(100vh-210px)] min-h-[640px] bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-800 overflow-hidden shadow-xl'
+                ? 'fixed inset-0 z-50 bg-slate-950 p-4 sm:p-6 flex flex-col h-screen h-[100dvh] overflow-hidden gpu-accelerated'
+                : 'flex flex-col lg:grid lg:grid-cols-12 gap-0 lg:gap-6 h-[calc(100vh-210px)] min-h-[640px] bg-slate-900 rounded-2xl sm:rounded-3xl border border-slate-800 overflow-hidden shadow-xl gpu-accelerated'
             }`}>
               {/* Full Screen Mode Top Exit Bar */}
               {isSupportFullScreen && (
@@ -1376,7 +1376,7 @@ export const AdminPortal: React.FC<AdminPortalProps> = ({ onLogout }) => {
                       onChange={handleAdminFilesSelected}
                     />
 
-                    <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4">
+                    <div className="flex-1 p-4 sm:p-6 overflow-y-auto space-y-4 overscroll-contain touch-scroll scroll-smooth">
                       {chatMessages.map(m => {
                         const isAdmin = m.senderRole === 'admin';
                         return (
