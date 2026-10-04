@@ -4,9 +4,9 @@ import {
   BankTransaction
 } from '../lib/types.ts';
 import { bankStore } from '../lib/bankStore.ts';
-import { COUNTRIES_AND_BANKS, CountryInfo } from '../lib/countriesAndBanks.ts';
 import { ReceiptModal } from './ReceiptModal.tsx';
 import { DepositModal } from './DepositModal.tsx';
+import { InternationalWireModal } from './InternationalWireModal.tsx';
 import { navHistory } from '../lib/navHistory.ts';
 import {
   Bell,
@@ -121,19 +121,6 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
   const [internalSuccess, setInternalSuccess] = useState<string | null>(null);
   const [internalSuccessTx, setInternalSuccessTx] = useState<BankTransaction | null>(null);
 
-  // International Wire Form
-  const [wireCountryCode, setWireCountryCode] = useState('GB');
-  const [countrySearch, setCountrySearch] = useState('');
-  const [wireBankName, setWireBankName] = useState('');
-  const [wireSwiftCode, setWireSwiftCode] = useState('');
-  const [wireRecipientName, setWireRecipientName] = useState('');
-  const [wireRecipientAcc, setWireRecipientAcc] = useState('');
-  const [wireAmount, setWireAmount] = useState('');
-  const [wireMemo, setWireMemo] = useState('');
-  const [wirePin, setWirePin] = useState('');
-  const [wireError, setWireError] = useState<string | null>(null);
-  const [wireSuccess, setWireSuccess] = useState<BankTransaction | null>(null);
-
   // Profile Edit Form
   const [profileName, setProfileName] = useState(user.displayName);
   const [profilePhone, setProfilePhone] = useState(user.phoneNumber || '');
@@ -149,17 +136,6 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
 
   // Card Controls
   const [cardFrozen, setCardFrozen] = useState(false);
-
-  // Selected wire country info
-  const selectedWireCountry: CountryInfo =
-    COUNTRIES_AND_BANKS.find(c => c.code === wireCountryCode) || COUNTRIES_AND_BANKS[0];
-
-  useEffect(() => {
-    if (selectedWireCountry.banks.length > 0) {
-      setWireBankName(selectedWireCountry.banks[0].name);
-      setWireSwiftCode(selectedWireCountry.banks[0].swiftCode);
-    }
-  }, [wireCountryCode]);
 
   // Sync state with BankStore
   const refreshData = () => {
@@ -345,48 +321,6 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
     }
   };
 
-  // Submit International Wire
-  const handleInternationalWireSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setWireError(null);
-    setWireSuccess(null);
-
-    const amt = parseFloat(wireAmount);
-    if (isNaN(amt) || amt <= 0) {
-      setWireError('Please enter a valid wire amount.');
-      return;
-    }
-    if (!wireRecipientName.trim() || !wireRecipientAcc.trim()) {
-      setWireError('Please complete all recipient beneficiary details.');
-      return;
-    }
-
-    try {
-      const tx = bankStore.sendInternationalWire(
-        user.uid,
-        selectedWireCountry.country,
-        wireBankName,
-        wireSwiftCode,
-        wireRecipientName.trim(),
-        wireRecipientAcc.trim(),
-        amt,
-        wireMemo,
-        wirePin.trim(),
-        selectedWireCountry.exchangeRateToUSD,
-        selectedWireCountry.currency
-      );
-      setWireSuccess(tx);
-      setWireAmount('');
-      setWireRecipientName('');
-      setWireRecipientAcc('');
-      setWireMemo('');
-      setWirePin('');
-      refreshData();
-    } catch (err: any) {
-      setWireError(err.message || 'International wire transmission failed.');
-    }
-  };
-
   // Save Profile
   const handleProfileSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -436,14 +370,6 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
       setPinError(err.message || 'Failed to save transaction PIN.');
     }
   };
-
-  // Filter countries for wire
-  const filteredCountries = COUNTRIES_AND_BANKS.filter(
-    c =>
-      c.country.toLowerCase().includes(countrySearch.toLowerCase()) ||
-      c.code.toLowerCase().includes(countrySearch.toLowerCase()) ||
-      c.currency.toLowerCase().includes(countrySearch.toLowerCase())
-  );
 
   // Time-based greeting matching picture style
   const getGreeting = () => {
@@ -690,8 +616,6 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
           <button
             onClick={() => {
               setShowInternationalWire(true);
-              setWireError(null);
-              setWireSuccess(null);
             }}
             disabled={user.status === 'locked' || user.transfersRestricted}
             className="p-3.5 bg-white hover:bg-indigo-50/70 border border-slate-200/80 rounded-2xl text-left shadow-xs transition-all flex items-center gap-3 cursor-pointer disabled:opacity-40"
@@ -701,7 +625,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
             </div>
             <div>
               <p className="font-bold text-xs text-slate-900">SWIFT Wire</p>
-              <p className="text-[10px] text-slate-500">180+ nations</p>
+              <p className="text-[10px] text-slate-500">194 countries & banks</p>
             </div>
           </button>
         </div>
@@ -1510,6 +1434,27 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
               </button>
             </div>
 
+            {/* Quick Switcher between Internal & SWIFT International Wire */}
+            <div className="p-1 bg-slate-100 rounded-xl flex gap-1 text-xs font-bold">
+              <button
+                type="button"
+                className="flex-1 py-1.5 rounded-lg bg-white text-blue-900 shadow-xs cursor-default"
+              >
+                Instant Internal Pay
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setShowInternalTransfer(false);
+                  setShowInternationalWire(true);
+                }}
+                className="flex-1 py-1.5 rounded-lg text-slate-600 hover:text-indigo-900 transition-colors cursor-pointer flex items-center justify-center gap-1"
+              >
+                <Globe2 className="w-3.5 h-3.5 text-indigo-600" />
+                <span>SWIFT Wire (194 Nations)</span>
+              </button>
+            </div>
+
             {internalError && (
               <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs">
                 {internalError}
@@ -1585,150 +1530,17 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
         </div>
       )}
 
-      {/* INTERNATIONAL SWIFT WIRE MODAL */}
-      {showInternationalWire && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/70 backdrop-blur-sm animate-in fade-in overflow-y-auto">
-          <div className="bg-white rounded-3xl p-6 max-w-lg w-full space-y-4 shadow-2xl my-auto">
-            <div className="flex justify-between items-center pb-2 border-b border-slate-100">
-              <div className="flex items-center gap-2 text-indigo-950">
-                <button
-                  type="button"
-                  onClick={() => setShowInternationalWire(false)}
-                  className="flex items-center gap-1 px-2.5 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs transition-colors cursor-pointer group active:scale-95 mr-1"
-                  title="Back to Dashboard (Esc)"
-                >
-                  <ArrowLeft className="w-3.5 h-3.5 text-slate-600 group-hover:-translate-x-0.5 transition-transform" />
-                  <span>Back</span>
-                </button>
-                <Globe2 className="w-5 h-5 text-indigo-700 shrink-0" />
-                <h3 className="font-bold text-base text-slate-900">SWIFT Wire Transfer</h3>
-              </div>
-              <button onClick={() => setShowInternationalWire(false)} className="p-1 rounded-full text-slate-400 hover:text-slate-700 cursor-pointer" title="Close">
-                <X className="w-5 h-5" />
-              </button>
-            </div>
-
-            {wireError && (
-              <div className="p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs">
-                {wireError}
-              </div>
-            )}
-            {wireSuccess && (
-              <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs space-y-2">
-                <p className="font-bold">Wire confirmed and dispatched into SWIFT network!</p>
-                <button
-                  type="button"
-                  onClick={() => {
-                    setSelectedTxReceipt(wireSuccess);
-                    setShowInternationalWire(false);
-                  }}
-                  className="px-3 py-1.5 bg-emerald-700 text-white rounded-lg font-bold"
-                >
-                  View Official Wire Advice Receipt
-                </button>
-              </div>
-            )}
-
-            <form onSubmit={handleInternationalWireSubmit} className="space-y-3 text-xs">
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">Destination Country</label>
-                  <select
-                    value={wireCountryCode}
-                    onChange={e => setWireCountryCode(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs"
-                  >
-                    {COUNTRIES_AND_BANKS.map(c => (
-                      <option key={c.code} value={c.code}>
-                        {c.country} ({c.currency})
-                      </option>
-                    ))}
-                  </select>
-                </div>
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">SWIFT / BIC Code</label>
-                  <input
-                    type="text"
-                    required
-                    value={wireSwiftCode}
-                    onChange={e => setWireSwiftCode(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-mono text-xs"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="font-bold text-slate-700 block mb-1">Destination Bank Name</label>
-                <input
-                  type="text"
-                  required
-                  value={wireBankName}
-                  onChange={e => setWireBankName(e.target.value)}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">Beneficiary Legal Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={wireRecipientName}
-                    onChange={e => setWireRecipientName(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs"
-                  />
-                </div>
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">Beneficiary IBAN / Account</label>
-                  <input
-                    type="text"
-                    required
-                    value={wireRecipientAcc}
-                    onChange={e => setWireRecipientAcc(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-mono text-xs"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <label className="font-bold text-slate-700 block mb-1">Transfer Amount (USD)</label>
-                <input
-                  type="number"
-                  step="0.01"
-                  required
-                  placeholder="0.00"
-                  value={wireAmount}
-                  onChange={e => setWireAmount(e.target.value)}
-                  className="w-full px-3.5 py-2.5 bg-slate-50 border border-slate-200 rounded-xl font-mono text-base font-bold outline-none focus:border-indigo-600"
-                />
-              </div>
-
-              {user.transactionPin && (
-                <div>
-                  <label className="font-bold text-slate-700 block mb-1">4-Digit Security PIN</label>
-                  <input
-                    type="password"
-                    maxLength={4}
-                    required
-                    placeholder="••••"
-                    value={wirePin}
-                    onChange={e => setWirePin(e.target.value)}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl font-mono text-center tracking-widest text-base"
-                  />
-                </div>
-              )}
-
-              <button
-                type="submit"
-                className="w-full py-3 bg-gradient-to-r from-indigo-700 to-blue-800 text-white font-bold text-sm rounded-xl shadow-md hover:from-indigo-800 hover:to-blue-900 transition-all cursor-pointer mt-2"
-              >
-                Authorize International Wire
-              </button>
-            </form>
-          </div>
-        </div>
-      )}
+      {/* GLOBAL SWIFT WIRE TRANSFER MODAL (194 COUNTRIES & THOUSANDS OF BANKS) */}
+      <InternationalWireModal
+        user={user}
+        isOpen={showInternationalWire}
+        onClose={() => setShowInternationalWire(false)}
+        onSuccess={tx => {
+          refreshData();
+          setShowInternationalWire(false);
+          setSelectedTxReceipt(tx);
+        }}
+      />
 
       {/* PROFILE KYC & SETTINGS MODAL */}
       {showProfileEdit && (

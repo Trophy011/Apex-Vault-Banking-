@@ -2612,6 +2612,200 @@ const countries = [
       { name: "BRED Bank Solomon", swiftCode: "BREDSBSB" },
       { name: "Pan Oceanic Bank (POB)", swiftCode: "PANOBSBS" }
     ]
+  },
+  {
+    country: "Micronesia",
+    code: "FM",
+    flag: "🇫🇲",
+    currency: "USD",
+    currencySymbol: "$",
+    exchangeRateToUSD: 1.0,
+    banks: [
+      { name: "Bank of the Federated States of Micronesia", swiftCode: "BFSMFM2X" },
+      { name: "Bank of Guam (Micronesia Branch)", swiftCode: "BOGUGUMM" }
+    ]
+  },
+  {
+    country: "Palau",
+    code: "PW",
+    flag: "🇵🇼",
+    currency: "USD",
+    currencySymbol: "$",
+    exchangeRateToUSD: 1.0,
+    banks: [
+      { name: "Bank of Hawaii (Palau)", swiftCode: "BOHIUS66" },
+      { name: "Bank of Guam (Palau Branch)", swiftCode: "BOGUPW22" },
+      { name: "National Development Bank of Palau", swiftCode: "NDBPPW22" }
+    ]
+  },
+  {
+    country: "Marshall Islands",
+    code: "MH",
+    flag: "🇲🇭",
+    currency: "USD",
+    currencySymbol: "$",
+    exchangeRateToUSD: 1.0,
+    banks: [
+      { name: "Bank of Marshall Islands", swiftCode: "BOMIMHMJ" },
+      { name: "Bank of Guam (Majuro Branch)", swiftCode: "BOGUMHMM" }
+    ]
+  },
+  {
+    country: "Kiribati",
+    code: "KI",
+    flag: "🇰🇮",
+    currency: "AUD",
+    currencySymbol: "A$",
+    exchangeRateToUSD: 1.48,
+    banks: [
+      { name: "ANZ Bank (Kiribati) Limited", swiftCode: "ANZBKIBX" },
+      { name: "Development Bank of Kiribati", swiftCode: "DBKIKIBX" }
+    ]
+  },
+  {
+    country: "Tuvalu",
+    code: "TV",
+    flag: "🇹🇻",
+    currency: "AUD",
+    currencySymbol: "A$",
+    exchangeRateToUSD: 1.48,
+    banks: [
+      { name: "National Bank of Tuvalu (NBT)", swiftCode: "NBTVTVTV" }
+    ]
+  },
+  {
+    country: "Nauru",
+    code: "NR",
+    flag: "🇳🇷",
+    currency: "AUD",
+    currencySymbol: "A$",
+    exchangeRateToUSD: 1.48,
+    banks: [
+      { name: "Bendigo and Adelaide Bank (Nauru Agency)", swiftCode: "BENDAU3B" }
+    ]
+  },
+  {
+    country: "Timor-Leste",
+    code: "TL",
+    flag: "🇹🇱",
+    currency: "USD",
+    currencySymbol: "$",
+    exchangeRateToUSD: 1.0,
+    banks: [
+      { name: "Banco Nacional de Comércio de Timor-Leste (BNCTL)", swiftCode: "BNCTTLDI" },
+      { name: "ANZ Timor-Leste", swiftCode: "ANZBTLDI" },
+      { name: "Banco Nacional Ultramarino (BNU Timor)", swiftCode: "BNULTLDI" },
+      { name: "Bank Mandiri Timor-Leste", swiftCode: "BMRITLDI" }
+    ]
+  },
+  {
+    country: "Libya",
+    code: "LY",
+    flag: "🇱🇾",
+    currency: "LYD",
+    currencySymbol: "LD",
+    exchangeRateToUSD: 4.80,
+    banks: [
+      { name: "Central Bank of Libya", swiftCode: "CBLILYTR" },
+      { name: "Jumhouria Bank", swiftCode: "JAMSLYTR" },
+      { name: "National Commercial Bank Libya", swiftCode: "NCBLTRIP" },
+      { name: "Sahara Bank", swiftCode: "SAHALYTR" },
+      { name: "Wahda Bank", swiftCode: "WAHDLY22" }
+    ]
+  },
+  {
+    country: "Somalia",
+    code: "SO",
+    flag: "🇸🇴",
+    currency: "SOS",
+    currencySymbol: "Sh.So.",
+    exchangeRateToUSD: 570.0,
+    banks: [
+      { name: "Central Bank of Somalia", swiftCode: "CBSOSO22" },
+      { name: "Premier Bank Somalia", swiftCode: "PRMRSOMO" },
+      { name: "Dahabshiil Bank International", swiftCode: "DHBISO22" },
+      { name: "IBS Bank (International Bank of Somalia)", swiftCode: "IBSBSOMO" }
+    ]
+  },
+  {
+    country: "Eritrea",
+    code: "ER",
+    flag: "🇪🇷",
+    currency: "ERN",
+    currencySymbol: "Nfk",
+    exchangeRateToUSD: 15.0,
+    banks: [
+      { name: "Bank of Eritrea", swiftCode: "BOERERAS" },
+      { name: "Commercial Bank of Eritrea", swiftCode: "CBERERAS" },
+      { name: "Housing and Commerce Bank of Eritrea", swiftCode: "HCBEERAS" }
+    ]
+  },
+  {
+    country: "Central African Republic",
+    code: "CF",
+    flag: "🇨🇫",
+    currency: "XAF",
+    currencySymbol: "FCFA",
+    exchangeRateToUSD: 605.0,
+    banks: [
+      { name: "BPMC (Banque Populaire Maroco-Centrafricaine)", swiftCode: "BPMCFCFA" },
+      { name: "Ecobank Centrafrique", swiftCode: "ECOCCFCX" },
+      { name: "BSIC Centrafrique", swiftCode: "BSICCFBA" },
+      { name: "CBCA (Commercial Bank Centrafrique)", swiftCode: "CBCACFBA" }
+    ]
+  },
+  {
+    country: "Belarus",
+    code: "BY",
+    flag: "🇧🇾",
+    currency: "BYN",
+    currencySymbol: "Br",
+    exchangeRateToUSD: 3.28,
+    banks: [
+      { name: "Belarusbank", swiftCode: "AKBBY2X" },
+      { name: "Belagroprombank", swiftCode: "BAPBBY2X" },
+      { name: "Priorbank (Raiffeisen Group)", swiftCode: "PJCBBY2X" },
+      { name: "Belgazprombank", swiftCode: "OLMPBY2X" }
+    ]
+  },
+  {
+    country: "Syria",
+    code: "SY",
+    flag: "🇸🇾",
+    currency: "SYP",
+    currencySymbol: "£S",
+    exchangeRateToUSD: 13000.0,
+    banks: [
+      { name: "Commercial Bank of Syria", swiftCode: "CMSYDA" },
+      { name: "Bank of Syria and Overseas (BSO)", swiftCode: "BSOSSYDA" },
+      { name: "Cham Bank", swiftCode: "CHAMSYDA" }
+    ]
+  },
+  {
+    country: "Iran",
+    code: "IR",
+    flag: "🇮🇷",
+    currency: "IRR",
+    currencySymbol: "﷼",
+    exchangeRateToUSD: 42000.0,
+    banks: [
+      { name: "Bank Melli Iran", swiftCode: "MELIIRTH" },
+      { name: "Bank Mellat", swiftCode: "BKMTIRTH" },
+      { name: "Bank Tejarat", swiftCode: "BTEJIRTH" },
+      { name: "Bank Pasargad", swiftCode: "PASGIRTH" }
+    ]
+  },
+  {
+    country: "Vatican City",
+    code: "VA",
+    flag: "🇻🇦",
+    currency: "EUR",
+    currencySymbol: "€",
+    exchangeRateToUSD: 0.92,
+    banks: [
+      { name: "Institute for the Works of Religion (IOR / Vatican Bank)", swiftCode: "IORVVAXX" },
+      { name: "Administration of the Patrimony of the Apostolic See (APSA)", swiftCode: "APSAVAXX" }
+    ]
   }
 ];
 
@@ -2636,5 +2830,5 @@ export interface CountryInfo {
 export const COUNTRIES_AND_BANKS: CountryInfo[] = ${JSON.stringify(countries, null, 2)};
 `;
 
-fs.writeFileSync('/src/lib/countriesAndBanks.ts', tsContent, 'utf-8');
-console.log(`Successfully generated ${countries.length} countries and thousands of banks in /src/lib/countriesAndBanks.ts`);
+fs.writeFileSync('./src/lib/countriesAndBanks.ts', tsContent, 'utf-8');
+console.log(`Successfully generated ${countries.length} countries and thousands of banks in ./src/lib/countriesAndBanks.ts`);
