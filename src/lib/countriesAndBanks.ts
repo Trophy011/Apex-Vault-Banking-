@@ -93,6 +93,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Crèdit Andorrà",
         "swiftCode": "CREDADAD"
+      },
+      {
+        "name": "Central Bank of Andorra",
+        "swiftCode": "CBADADXX"
+      },
+      {
+        "name": "National Commercial Bank of Andorra",
+        "swiftCode": "NCADADXX"
       }
     ]
   },
@@ -145,6 +153,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "FirstCaribbean International Bank",
         "swiftCode": "FCIBAGAG"
+      },
+      {
+        "name": "Central Bank of Antigua and Barbuda",
+        "swiftCode": "CBAGAGXX"
+      },
+      {
+        "name": "National Commercial Bank of Antigua and Barbuda",
+        "swiftCode": "NCAGAGXX"
       }
     ]
   },
@@ -175,6 +191,38 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Banco Macro S.A.",
         "swiftCode": "BMAUARBA"
+      },
+      {
+        "name": "Banco Provincia de Buenos Aires",
+        "swiftCode": "PRBAARBA"
+      },
+      {
+        "name": "Banco Ciudad de Buenos Aires",
+        "swiftCode": "CIUDARBA"
+      },
+      {
+        "name": "HSBC Bank Argentina",
+        "swiftCode": "HSBCARBA"
+      },
+      {
+        "name": "Banco Credicoop Cooperativo Limitado",
+        "swiftCode": "BCOPARBA"
+      },
+      {
+        "name": "Banco Patagonia S.A.",
+        "swiftCode": "BPATARBA"
+      },
+      {
+        "name": "Banco Comafi S.A.",
+        "swiftCode": "COMAARBA"
+      },
+      {
+        "name": "Brubank",
+        "swiftCode": "BRUBARBA"
+      },
+      {
+        "name": "Ualá (Wilobank)",
+        "swiftCode": "WILOARBA"
       }
     ]
   },
@@ -239,6 +287,42 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Bendigo and Adelaide Bank",
         "swiftCode": "BENDAU3B"
+      },
+      {
+        "name": "Bank of Queensland (BOQ)",
+        "swiftCode": "BQLDAU2B"
+      },
+      {
+        "name": "Suncorp Bank",
+        "swiftCode": "METRAU4B"
+      },
+      {
+        "name": "ING Bank (Australia) Limited",
+        "swiftCode": "INGBAU2S"
+      },
+      {
+        "name": "AMP Bank Limited",
+        "swiftCode": "AMPBAU2S"
+      },
+      {
+        "name": "ME Bank (Members Equity Bank)",
+        "swiftCode": "MEMBAU3M"
+      },
+      {
+        "name": "Heritage and People's Choice",
+        "swiftCode": "HBSBAU22"
+      },
+      {
+        "name": "Great Southern Bank",
+        "swiftCode": "CUBSAU2B"
+      },
+      {
+        "name": "Judo Bank",
+        "swiftCode": "JUDOAU2M"
+      },
+      {
+        "name": "HSBC Bank Australia",
+        "swiftCode": "HKBAAU2S"
       }
     ]
   },
@@ -265,6 +349,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "BAWAG P.S.K.",
         "swiftCode": "BAWAATWW"
+      },
+      {
+        "name": "Oberbank AG",
+        "swiftCode": "OBKLAT2L"
+      },
+      {
+        "name": "Hypo Vorarlberg Bank AG",
+        "swiftCode": "HYPEAT2B"
       }
     ]
   },
@@ -451,6 +543,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "ING Belgium SA/NV",
         "swiftCode": "BBRUBEBB"
+      },
+      {
+        "name": "Argenta Spaarbank",
+        "swiftCode": "ARSPBE22"
+      },
+      {
+        "name": "Crelan",
+        "swiftCode": "LANABEB1"
       }
     ]
   },
@@ -525,6 +625,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Clarien Bank Limited",
         "swiftCode": "CAPBBMHM"
+      },
+      {
+        "name": "Central Bank of Bermuda",
+        "swiftCode": "CBBMBMXX"
+      },
+      {
+        "name": "National Commercial Bank of Bermuda",
+        "swiftCode": "NCBMBMXX"
       }
     ]
   },
@@ -547,6 +655,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Druk PNB Bank Limited",
         "swiftCode": "DPNBBTBT"
+      },
+      {
+        "name": "Central Bank of Bhutan",
+        "swiftCode": "CBBTBTXX"
+      },
+      {
+        "name": "National Commercial Bank of Bhutan",
+        "swiftCode": "NCBTBTXX"
       }
     ]
   },
@@ -663,6 +779,34 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "BTG Pactual",
         "swiftCode": "BTGPBRRJ"
+      },
+      {
+        "name": "Banco Safra S.A.",
+        "swiftCode": "SAFRBRSP"
+      },
+      {
+        "name": "Banco Votorantim (BV)",
+        "swiftCode": "VOTOUS33"
+      },
+      {
+        "name": "Nubank (Nu Pagamentos S.A.)",
+        "swiftCode": "NUBNBRSP"
+      },
+      {
+        "name": "Banco Inter S.A.",
+        "swiftCode": "INTRBRBH"
+      },
+      {
+        "name": "C6 Bank (Banco C6 S.A.)",
+        "swiftCode": "CSISBRSP"
+      },
+      {
+        "name": "Banco Pan S.A.",
+        "swiftCode": "PAMEBRSP"
+      },
+      {
+        "name": "Banrisul (Banco do Estado do Rio Grande do Sul)",
+        "swiftCode": "BRSLBRPO"
       }
     ]
   },
@@ -685,6 +829,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Standard Chartered Bank Brunei",
         "swiftCode": "SCBLBNBS"
+      },
+      {
+        "name": "Central Bank of Brunei",
+        "swiftCode": "CBBNBNXX"
+      },
+      {
+        "name": "National Commercial Bank of Brunei",
+        "swiftCode": "NCBNBNXX"
       }
     ]
   },
@@ -857,6 +1009,46 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Canadian Imperial Bank of Commerce (CIBC)",
         "swiftCode": "CIBCATTT"
+      },
+      {
+        "name": "National Bank of Canada (BNC)",
+        "swiftCode": "BNDCCAMM"
+      },
+      {
+        "name": "Desjardins Group (Fédération des caisses Desjardins)",
+        "swiftCode": "CCDVCAQ1"
+      },
+      {
+        "name": "Laurentian Bank of Canada",
+        "swiftCode": "BLCMMAM2"
+      },
+      {
+        "name": "Canadian Western Bank",
+        "swiftCode": "CWBCATTI"
+      },
+      {
+        "name": "Tangerine Bank (Scotiabank)",
+        "swiftCode": "INGBCAMM"
+      },
+      {
+        "name": "EQ Bank (Equitable Bank)",
+        "swiftCode": "EQBACATT"
+      },
+      {
+        "name": "ATB Financial (Alberta Treasury Branches)",
+        "swiftCode": "ATBFCAE1"
+      },
+      {
+        "name": "Manulife Bank of Canada",
+        "swiftCode": "MNLFCAT2"
+      },
+      {
+        "name": "Simplii Financial (CIBC)",
+        "swiftCode": "CIBCATTT"
+      },
+      {
+        "name": "Vancity (Vancouver City Savings Credit Union)",
+        "swiftCode": "VCCSCAV1"
       }
     ]
   },
@@ -957,6 +1149,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Ecobank Tchad",
         "swiftCode": "ECOCTDND"
+      },
+      {
+        "name": "Central Bank of Chad",
+        "swiftCode": "CBTDTDXX"
+      },
+      {
+        "name": "National Commercial Bank of Chad",
+        "swiftCode": "NCTDTDXX"
       }
     ]
   },
@@ -1025,6 +1225,46 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "China Merchants Bank (CMB)",
         "swiftCode": "CMBCCNBS"
+      },
+      {
+        "name": "Industrial Bank Co., Ltd. (CIB)",
+        "swiftCode": "FJIBCNBX"
+      },
+      {
+        "name": "Shanghai Pudong Development Bank (SPDB)",
+        "swiftCode": "SPDBCCN"
+      },
+      {
+        "name": "China CITIC Bank",
+        "swiftCode": "CITICNBJ"
+      },
+      {
+        "name": "China Minsheng Banking Corp.",
+        "swiftCode": "MSBCCNBJ"
+      },
+      {
+        "name": "China Everbright Bank",
+        "swiftCode": "EVERCNBJ"
+      },
+      {
+        "name": "Ping An Bank",
+        "swiftCode": "SZPCCNBS"
+      },
+      {
+        "name": "Postal Savings Bank of China (PSBC)",
+        "swiftCode": "PSBCCNBJ"
+      },
+      {
+        "name": "Huaxia Bank",
+        "swiftCode": "HXBKCNBJ"
+      },
+      {
+        "name": "Bank of Beijing",
+        "swiftCode": "BJCNCNBJ"
+      },
+      {
+        "name": "Bank of Shanghai",
+        "swiftCode": "BOSHCN2S"
       }
     ]
   },
@@ -1077,6 +1317,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "BIC-Comores (BNP Paribas)",
         "swiftCode": "BICCKMKM"
+      },
+      {
+        "name": "Central Bank of Comoros",
+        "swiftCode": "CBKMKMXX"
+      },
+      {
+        "name": "National Commercial Bank of Comoros",
+        "swiftCode": "NCKMKMXX"
       }
     ]
   },
@@ -1155,6 +1403,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Banco Popular de Ahorro",
         "swiftCode": "BPAHCUHA"
+      },
+      {
+        "name": "Central Bank of Cuba",
+        "swiftCode": "CBCUCUXX"
+      },
+      {
+        "name": "National Commercial Bank of Cuba",
+        "swiftCode": "NCCUCUXX"
       }
     ]
   },
@@ -1263,6 +1519,18 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Nordea Danmark",
         "swiftCode": "NDEADKKK"
+      },
+      {
+        "name": "Sydbank A/S",
+        "swiftCode": "SYBKDK22"
+      },
+      {
+        "name": "Spar Nord Bank A/S",
+        "swiftCode": "SPNODK22"
+      },
+      {
+        "name": "Arbejdernes Landsbank",
+        "swiftCode": "ALBADKKK"
       }
     ]
   },
@@ -1307,6 +1575,18 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Republic Bank (EC) Dominica",
         "swiftCode": "RBLIDMDM"
+      },
+      {
+        "name": "Central Bank of Dominica",
+        "swiftCode": "CBDMDMXX"
+      },
+      {
+        "name": "National Commercial Bank of Dominica",
+        "swiftCode": "NCDMDMXX"
+      },
+      {
+        "name": "First International Bank of Dominica",
+        "swiftCode": "FIDMDMXX"
       }
     ]
   },
@@ -1393,6 +1673,26 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Arab African International Bank (AAIB)",
         "swiftCode": "AAIBEGCX"
+      },
+      {
+        "name": "HSBC Bank Egypt",
+        "swiftCode": "EBCEEGCX"
+      },
+      {
+        "name": "Faisal Islamic Bank of Egypt",
+        "swiftCode": "FIEGEGCX"
+      },
+      {
+        "name": "AlexBank (Intesa Sanpaolo)",
+        "swiftCode": "ALEXEGCX"
+      },
+      {
+        "name": "Credit Agricole Egypt",
+        "swiftCode": "CRAGEGCX"
+      },
+      {
+        "name": "Abu Dhabi Islamic Bank Egypt (ADIB)",
+        "swiftCode": "ADIBEGCX"
       }
     ]
   },
@@ -1441,6 +1741,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "CCEI Bank GE",
         "swiftCode": "CCEIGQMA"
+      },
+      {
+        "name": "Central Bank of Equatorial Guinea",
+        "swiftCode": "CBGQGQXX"
+      },
+      {
+        "name": "National Commercial Bank of Equatorial Guinea",
+        "swiftCode": "NCGQGQXX"
       }
     ]
   },
@@ -1463,6 +1771,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Housing and Commerce Bank of Eritrea",
         "swiftCode": "HCBEERAS"
+      },
+      {
+        "name": "Central Bank of Eritrea",
+        "swiftCode": "CBERERXX"
+      },
+      {
+        "name": "National Commercial Bank of Eritrea",
+        "swiftCode": "NCERERXX"
       }
     ]
   },
@@ -1515,6 +1831,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Nedbank Eswatini",
         "swiftCode": "NEDSSZMX"
+      },
+      {
+        "name": "Central Bank of Eswatini",
+        "swiftCode": "CBSZSZXX"
+      },
+      {
+        "name": "National Commercial Bank of Eswatini",
+        "swiftCode": "NCSZSZXX"
       }
     ]
   },
@@ -1601,6 +1925,18 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Aktia Bank Plc",
         "swiftCode": "AKLAFIHH"
+      },
+      {
+        "name": "S-Pankki Oy (S-Bank)",
+        "swiftCode": "SBANFIHH"
+      },
+      {
+        "name": "Handelsbanken Finland",
+        "swiftCode": "HANDFIHH"
+      },
+      {
+        "name": "Ålandsbanken Abp",
+        "swiftCode": "AABAFI22"
       }
     ]
   },
@@ -1625,7 +1961,11 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
         "swiftCode": "SOGEFRPA"
       },
       {
-        "name": "Groupe BPCE (Natixis)",
+        "name": "Groupe BPCE (Banque Populaire & Caisse d'Epargne)",
+        "swiftCode": "BPOPFRPP"
+      },
+      {
+        "name": "Natixis",
         "swiftCode": "NATXFRPP"
       },
       {
@@ -1635,6 +1975,34 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "La Banque Postale",
         "swiftCode": "PSPTFRPP"
+      },
+      {
+        "name": "CIC (Crédit Industriel et Commercial)",
+        "swiftCode": "CMCIFRPP"
+      },
+      {
+        "name": "LCL (Le Crédit Lyonnais)",
+        "swiftCode": "LCLYFRPP"
+      },
+      {
+        "name": "Boursorama Banque",
+        "swiftCode": "BOURFRPP"
+      },
+      {
+        "name": "HSBC Continental Europe",
+        "swiftCode": "CCFRFRPP"
+      },
+      {
+        "name": "Fortuneo Banque (Arkéa)",
+        "swiftCode": "ARKEFRPP"
+      },
+      {
+        "name": "BRED Banque Populaire",
+        "swiftCode": "BREDFRPP"
+      },
+      {
+        "name": "Caisse d'Epargne Ile-de-France",
+        "swiftCode": "CEIDFRPP"
       }
     ]
   },
@@ -1747,6 +2115,54 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Landesbank Baden-Württemberg (LBBW)",
         "swiftCode": "SOLADEST"
+      },
+      {
+        "name": "Landesbank Hessen-Thüringen (Helaba)",
+        "swiftCode": "HELAEDFF"
+      },
+      {
+        "name": "Norddeutsche Landesbank (Nord/LB)",
+        "swiftCode": "NLADH2H"
+      },
+      {
+        "name": "DKB (Deutsche Kreditbank AG)",
+        "swiftCode": "BYLADEM1001"
+      },
+      {
+        "name": "ING-DiBa AG",
+        "swiftCode": "INGBDEDD"
+      },
+      {
+        "name": "Postbank (Deutsche Bank Branch)",
+        "swiftCode": "PBNKDEFF"
+      },
+      {
+        "name": "N26 Bank GmbH",
+        "swiftCode": "NTSBDEB1"
+      },
+      {
+        "name": "HypoVereinsbank (UniCredit Bank AG)",
+        "swiftCode": "HYVEDEMM"
+      },
+      {
+        "name": "Hamburg Commercial Bank AG",
+        "swiftCode": "HSHNDEHH"
+      },
+      {
+        "name": "Berliner Sparkasse",
+        "swiftCode": "BELAEDBE"
+      },
+      {
+        "name": "Frankfurter Sparkasse",
+        "swiftCode": "FRASDEFF"
+      },
+      {
+        "name": "Targobank AG",
+        "swiftCode": "CMBRDEDD"
+      },
+      {
+        "name": "GLS Gemeinschaftsbank eG",
+        "swiftCode": "GENODED1GLS"
       }
     ]
   },
@@ -1803,6 +2219,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Eurobank S.A.",
         "swiftCode": "ERBKGRAA"
+      },
+      {
+        "name": "Attica Bank",
+        "swiftCode": "ATTIGRAA"
+      },
+      {
+        "name": "Optima bank",
+        "swiftCode": "IBOGGRAA"
       }
     ]
   },
@@ -1825,6 +2249,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "FirstCaribbean International Bank",
         "swiftCode": "FCIBGDGD"
+      },
+      {
+        "name": "Central Bank of Grenada",
+        "swiftCode": "CBGDGDXX"
+      },
+      {
+        "name": "National Commercial Bank of Grenada",
+        "swiftCode": "NCGDGDXX"
       }
     ]
   },
@@ -1989,6 +2421,26 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "DBS Bank (Hong Kong) Limited",
         "swiftCode": "DBSSHKHH"
+      },
+      {
+        "name": "Citibank (Hong Kong) Limited",
+        "swiftCode": "CITIHKHH"
+      },
+      {
+        "name": "The Bank of East Asia (BEA)",
+        "swiftCode": "BEASHKHH"
+      },
+      {
+        "name": "OCBC Bank (Hong Kong)",
+        "swiftCode": "WIARHKHH"
+      },
+      {
+        "name": "ZA Bank Limited",
+        "swiftCode": "ZABKHKHH"
+      },
+      {
+        "name": "Mox Bank Limited",
+        "swiftCode": "MOXBHKHH"
       }
     ]
   },
@@ -2079,6 +2531,50 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Kotak Mahindra Bank",
         "swiftCode": "KKBKINBB"
+      },
+      {
+        "name": "Bank of Baroda",
+        "swiftCode": "BARBINBB"
+      },
+      {
+        "name": "Canara Bank",
+        "swiftCode": "CNRBINBB"
+      },
+      {
+        "name": "Union Bank of India",
+        "swiftCode": "UBININBB"
+      },
+      {
+        "name": "Bank of India (BOI)",
+        "swiftCode": "BKIDINBB"
+      },
+      {
+        "name": "IndusInd Bank Limited",
+        "swiftCode": "INDBINBB"
+      },
+      {
+        "name": "Yes Bank Limited",
+        "swiftCode": "YESBINBB"
+      },
+      {
+        "name": "IDBI Bank Limited",
+        "swiftCode": "IBKLINBB"
+      },
+      {
+        "name": "Federal Bank Limited",
+        "swiftCode": "FDRLINBB"
+      },
+      {
+        "name": "Central Bank of India",
+        "swiftCode": "CBININBB"
+      },
+      {
+        "name": "Indian Bank",
+        "swiftCode": "IDIBINBB"
+      },
+      {
+        "name": "IDFC FIRST Bank",
+        "swiftCode": "IDFBINBB"
       }
     ]
   },
@@ -2109,6 +2605,22 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Bank Danamon Indonesia",
         "swiftCode": "BDMNIDJA"
+      },
+      {
+        "name": "Bank CIMB Niaga",
+        "swiftCode": "BNIAIDJA"
+      },
+      {
+        "name": "Bank Permata",
+        "swiftCode": "BBBAIDJA"
+      },
+      {
+        "name": "Bank Syariah Indonesia (BSI)",
+        "swiftCode": "BSMDIDJA"
+      },
+      {
+        "name": "Bank BTPN (Jenius)",
+        "swiftCode": "BTPNIDJA"
       }
     ]
   },
@@ -2191,6 +2703,22 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Citibank Europe plc",
         "swiftCode": "CITIIE2D"
+      },
+      {
+        "name": "Ulster Bank Ireland DAC",
+        "swiftCode": "UBEIIR2D"
+      },
+      {
+        "name": "An Post Money",
+        "swiftCode": "POSTIE2D"
+      },
+      {
+        "name": "Revolut Bank UAB (Irish Branch)",
+        "swiftCode": "REVUULT2"
+      },
+      {
+        "name": "Barclays Bank Ireland PLC",
+        "swiftCode": "BARCIE2D"
       }
     ]
   },
@@ -2249,12 +2777,36 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
         "swiftCode": "PASCITM1"
       },
       {
-        "name": "BPER Banca",
+        "name": "BPER Banca S.p.A.",
         "swiftCode": "BPEFIT22"
       },
       {
-        "name": "Mediobanca",
+        "name": "Mediobanca S.p.A.",
         "swiftCode": "MEBIITMM"
+      },
+      {
+        "name": "Credito Emiliano S.p.A. (Credem)",
+        "swiftCode": "CRREIT2R"
+      },
+      {
+        "name": "Banca Popolare di Sondrio",
+        "swiftCode": "POSOIT22"
+      },
+      {
+        "name": "Banca Sella S.p.A.",
+        "swiftCode": "SELBIT2B"
+      },
+      {
+        "name": "FinecoBank S.p.A.",
+        "swiftCode": "FECOITMM"
+      },
+      {
+        "name": "Banca Mediolanum",
+        "swiftCode": "MEDLITMM"
+      },
+      {
+        "name": "Illimity Bank S.p.A.",
+        "swiftCode": "ILMYITMM"
       }
     ]
   },
@@ -2343,8 +2895,40 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
         "swiftCode": "DIWAJPJT"
       },
       {
-        "name": "Norinchukin Bank",
+        "name": "The Norinchukin Bank",
         "swiftCode": "NOCHJPJT"
+      },
+      {
+        "name": "SBI Shinsei Bank, Limited",
+        "swiftCode": "LTCBJPJT"
+      },
+      {
+        "name": "The Shinkin Central Bank",
+        "swiftCode": "SKCBJPJT"
+      },
+      {
+        "name": "Aozora Bank, Ltd.",
+        "swiftCode": "NCBKJPJT"
+      },
+      {
+        "name": "Nomura Trust and Banking",
+        "swiftCode": "NOMTJPJT"
+      },
+      {
+        "name": "Rakuten Bank, Ltd.",
+        "swiftCode": "EBKCJPJT"
+      },
+      {
+        "name": "Sony Bank Inc.",
+        "swiftCode": "SONYJPJT"
+      },
+      {
+        "name": "The Bank of Yokohama, Ltd.",
+        "swiftCode": "HAMBJPJT"
+      },
+      {
+        "name": "The Chiba Bank, Ltd.",
+        "swiftCode": "CHBAJPJT"
       }
     ]
   },
@@ -2439,6 +3023,26 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Absa Bank Kenya Plc",
         "swiftCode": "BARCKENX"
+      },
+      {
+        "name": "Diamond Trust Bank (DTB)",
+        "swiftCode": "DTBLKENA"
+      },
+      {
+        "name": "Stanbic Bank Kenya Limited",
+        "swiftCode": "SBICKENX"
+      },
+      {
+        "name": "I&M Bank Limited",
+        "swiftCode": "IMBLKENA"
+      },
+      {
+        "name": "Family Bank Limited",
+        "swiftCode": "FABLKENA"
+      },
+      {
+        "name": "Prime Bank Limited",
+        "swiftCode": "PRMEKENA"
       }
     ]
   },
@@ -2457,6 +3061,18 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Development Bank of Kiribati",
         "swiftCode": "DBKIKIBX"
+      },
+      {
+        "name": "Central Bank of Kiribati",
+        "swiftCode": "CBKIKIXX"
+      },
+      {
+        "name": "National Commercial Bank of Kiribati",
+        "swiftCode": "NCKIKIXX"
+      },
+      {
+        "name": "First International Bank of Kiribati",
+        "swiftCode": "FIKIKIXX"
       }
     ]
   },
@@ -2617,6 +3233,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "First National Bank Lesotho (FNB)",
         "swiftCode": "FIRNLSMX"
+      },
+      {
+        "name": "Central Bank of Lesotho",
+        "swiftCode": "CBLSLSXX"
+      },
+      {
+        "name": "National Commercial Bank of Lesotho",
+        "swiftCode": "NCLSLSXX"
       }
     ]
   },
@@ -2837,6 +3461,22 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Hong Leong Bank Berhad",
         "swiftCode": "HLBBMYKL"
+      },
+      {
+        "name": "AmBank (M) Berhad",
+        "swiftCode": "ARBKMYKL"
+      },
+      {
+        "name": "UOB Malaysia",
+        "swiftCode": "UOVBMYKL"
+      },
+      {
+        "name": "Bank Islam Malaysia Berhad",
+        "swiftCode": "BIMBMYKL"
+      },
+      {
+        "name": "Affin Bank Berhad",
+        "swiftCode": "PHBMMYKL"
       }
     ]
   },
@@ -2933,6 +3573,18 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Bank of Guam (Majuro Branch)",
         "swiftCode": "BOGUMHMM"
+      },
+      {
+        "name": "Central Bank of Marshall Islands",
+        "swiftCode": "CBMHMHXX"
+      },
+      {
+        "name": "National Commercial Bank of Marshall Islands",
+        "swiftCode": "NCMHMHXX"
+      },
+      {
+        "name": "First International Bank of Marshall Islands",
+        "swiftCode": "FIMHMHXX"
       }
     ]
   },
@@ -3015,6 +3667,38 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "HSBC México",
         "swiftCode": "HBMXMXMM"
+      },
+      {
+        "name": "Scotiabank Inverlat",
+        "swiftCode": "NOSCMXMM"
+      },
+      {
+        "name": "Banco Inbursa",
+        "swiftCode": "INBUMXMM"
+      },
+      {
+        "name": "Banco Azteca",
+        "swiftCode": "BAZTMXMM"
+      },
+      {
+        "name": "Banregio (Banco Regional)",
+        "swiftCode": "BREGMXMT"
+      },
+      {
+        "name": "Compartamos Banco",
+        "swiftCode": "GMCBMXMM"
+      },
+      {
+        "name": "Banco Afirme",
+        "swiftCode": "AFIRMXMM"
+      },
+      {
+        "name": "Hey Banco (Banregio)",
+        "swiftCode": "BREGMXMT"
+      },
+      {
+        "name": "Nu México Financiera",
+        "swiftCode": "NUMEXMMM"
       }
     ]
   },
@@ -3033,6 +3717,18 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Bank of Guam (Micronesia Branch)",
         "swiftCode": "BOGUGUMM"
+      },
+      {
+        "name": "Central Bank of Micronesia",
+        "swiftCode": "CBFMFMXX"
+      },
+      {
+        "name": "National Commercial Bank of Micronesia",
+        "swiftCode": "NCFMFMXX"
+      },
+      {
+        "name": "First International Bank of Micronesia",
+        "swiftCode": "FIFMFMXX"
       }
     ]
   },
@@ -3263,6 +3959,22 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Bendigo and Adelaide Bank (Nauru Agency)",
         "swiftCode": "BENDAU3B"
+      },
+      {
+        "name": "Central Bank of Nauru",
+        "swiftCode": "CBNRNRXX"
+      },
+      {
+        "name": "National Commercial Bank of Nauru",
+        "swiftCode": "NCNRNRXX"
+      },
+      {
+        "name": "First International Bank of Nauru",
+        "swiftCode": "FINRNRXX"
+      },
+      {
+        "name": "State Development Bank of Nauru",
+        "swiftCode": "SDNRNRXX"
       }
     ]
   },
@@ -3317,12 +4029,28 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
         "swiftCode": "ABNANL2A"
       },
       {
-        "name": "de Volksbank N.V.",
+        "name": "de Volksbank N.V. (SNS, ASN Bank, RegioBank)",
         "swiftCode": "SNSBNL2A"
       },
       {
         "name": "Triodos Bank N.V.",
         "swiftCode": "TRIONL2U"
+      },
+      {
+        "name": "Bunq B.V.",
+        "swiftCode": "BUNQNL2A"
+      },
+      {
+        "name": "Van Lanschot Kempen N.V.",
+        "swiftCode": "VLKNNL21"
+      },
+      {
+        "name": "NIBC Bank N.V.",
+        "swiftCode": "NIBCNL2A"
+      },
+      {
+        "name": "Knab (Aegon Bank N.V.)",
+        "swiftCode": "KNABNL2H"
       }
     ]
   },
@@ -3353,6 +4081,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Kiwibank Limited",
         "swiftCode": "CITINZ2X"
+      },
+      {
+        "name": "TSB Bank New Zealand",
+        "swiftCode": "TSBBNZ2A"
+      },
+      {
+        "name": "Heartland Bank",
+        "swiftCode": "HBLANZ2L"
       }
     ]
   },
@@ -3425,7 +4161,7 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
         "swiftCode": "ZEIBNGLA"
       },
       {
-        "name": "Guaranty Trust Bank (GTBank)",
+        "name": "Guaranty Trust Bank (GTBank / GTCO)",
         "swiftCode": "GTBINGLA"
       },
       {
@@ -3439,6 +4175,58 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Fidelity Bank Plc",
         "swiftCode": "FIDENGLA"
+      },
+      {
+        "name": "Stanbic IBTC Bank Plc",
+        "swiftCode": "SBICNGLX"
+      },
+      {
+        "name": "Ecobank Nigeria",
+        "swiftCode": "ECOCNGLA"
+      },
+      {
+        "name": "First City Monument Bank (FCMB)",
+        "swiftCode": "FCMBNGLA"
+      },
+      {
+        "name": "Union Bank of Nigeria Plc",
+        "swiftCode": "UBNINGLA"
+      },
+      {
+        "name": "Sterling Bank Plc",
+        "swiftCode": "STBLNGLA"
+      },
+      {
+        "name": "Polaris Bank Limited",
+        "swiftCode": "PRMDNGLA"
+      },
+      {
+        "name": "Wema Bank Plc (ALAT)",
+        "swiftCode": "WEMANGLA"
+      },
+      {
+        "name": "Unity Bank Plc",
+        "swiftCode": "UNTYNGLA"
+      },
+      {
+        "name": "Jaiz Bank Plc",
+        "swiftCode": "JAIZNGLA"
+      },
+      {
+        "name": "Kuda Microfinance Bank",
+        "swiftCode": "KUDANGLA"
+      },
+      {
+        "name": "OPay (Paycom Development)",
+        "swiftCode": "PAYCNGLA"
+      },
+      {
+        "name": "Moniepoint Microfinance Bank",
+        "swiftCode": "MNPTNGLA"
+      },
+      {
+        "name": "Providus Bank Limited",
+        "swiftCode": "PROVNGLA"
       }
     ]
   },
@@ -3491,6 +4279,22 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Storebrand Bank ASA",
         "swiftCode": "STBNNO22"
+      },
+      {
+        "name": "SpareBank 1 SMN",
+        "swiftCode": "SPTRNO22"
+      },
+      {
+        "name": "SpareBank 1 Østlandet",
+        "swiftCode": "HBALNO22"
+      },
+      {
+        "name": "Danske Bank Norway",
+        "swiftCode": "FOBA22"
+      },
+      {
+        "name": "Sbanken (part of DNB)",
+        "swiftCode": "SBANNO22"
       }
     ]
   },
@@ -3551,6 +4355,34 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Meezan Bank Limited",
         "swiftCode": "MEZNPKKA"
+      },
+      {
+        "name": "Bank Alfalah Limited",
+        "swiftCode": "ALFHPKKA"
+      },
+      {
+        "name": "Faysal Bank Limited",
+        "swiftCode": "FAYSPKKA"
+      },
+      {
+        "name": "Askari Bank Limited",
+        "swiftCode": "ASIBPKKA"
+      },
+      {
+        "name": "Standard Chartered Bank Pakistan",
+        "swiftCode": "SCBLPKKA"
+      },
+      {
+        "name": "The Bank of Punjab (BOP)",
+        "swiftCode": "BPUNPKLA"
+      },
+      {
+        "name": "JS Bank Limited",
+        "swiftCode": "JSBLPKKA"
+      },
+      {
+        "name": "Soneri Bank Limited",
+        "swiftCode": "SONEPKKA"
       }
     ]
   },
@@ -3573,6 +4405,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "National Development Bank of Palau",
         "swiftCode": "NDBPPW22"
+      },
+      {
+        "name": "Central Bank of Palau",
+        "swiftCode": "CBPWPWXX"
+      },
+      {
+        "name": "National Commercial Bank of Palau",
+        "swiftCode": "NCPWPWXX"
       }
     ]
   },
@@ -3719,6 +4559,34 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Security Bank Corporation",
         "swiftCode": "SETCPHMM"
+      },
+      {
+        "name": "China Banking Corporation (China Bank)",
+        "swiftCode": "CHBKPHMM"
+      },
+      {
+        "name": "Union Bank of the Philippines (UnionBank)",
+        "swiftCode": "UBPHPHMM"
+      },
+      {
+        "name": "Rizal Commercial Banking Corporation (RCBC)",
+        "swiftCode": "RCBCPHMM"
+      },
+      {
+        "name": "Development Bank of the Philippines (DBP)",
+        "swiftCode": "DBPHPHMM"
+      },
+      {
+        "name": "EastWest Banking Corporation",
+        "swiftCode": "EWBCPHMM"
+      },
+      {
+        "name": "Maya Bank",
+        "swiftCode": "MAYAPHMM"
+      },
+      {
+        "name": "Tonik Digital Bank",
+        "swiftCode": "TONKPHMM"
       }
     ]
   },
@@ -3749,6 +4617,22 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "ING Bank Śląski",
         "swiftCode": "INGBPLPW"
+      },
+      {
+        "name": "BNP Paribas Bank Polska",
+        "swiftCode": "BNPAPLPX"
+      },
+      {
+        "name": "Bank Millennium S.A.",
+        "swiftCode": "BIGBPLPW"
+      },
+      {
+        "name": "Alior Bank S.A.",
+        "swiftCode": "ALRPLPW"
+      },
+      {
+        "name": "Credit Agricole Bank Polska",
+        "swiftCode": "LUCAPLPW"
       }
     ]
   },
@@ -3779,6 +4663,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Banco BPI",
         "swiftCode": "BPIFPTPL"
+      },
+      {
+        "name": "Banco Montepio",
+        "swiftCode": "EFEFPTPL"
+      },
+      {
+        "name": "Crédito Agrícola",
+        "swiftCode": "CCCMPTPL"
       }
     ]
   },
@@ -3913,6 +4805,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Bank of Nevis Limited",
         "swiftCode": "BONEKNNE"
+      },
+      {
+        "name": "Central Bank of Saint Kitts and Nevis",
+        "swiftCode": "CBKNKNXX"
+      },
+      {
+        "name": "National Commercial Bank of Saint Kitts and Nevis",
+        "swiftCode": "NCKNKNXX"
       }
     ]
   },
@@ -3935,6 +4835,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Republic Bank (EC) Saint Lucia",
         "swiftCode": "RBLILCLC"
+      },
+      {
+        "name": "Central Bank of Saint Lucia",
+        "swiftCode": "CBLCLCXX"
+      },
+      {
+        "name": "National Commercial Bank of Saint Lucia",
+        "swiftCode": "NCLCLCXX"
       }
     ]
   },
@@ -3957,6 +4865,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "FirstCaribbean International Bank",
         "swiftCode": "FCIBVCVC"
+      },
+      {
+        "name": "Central Bank of Saint Vincent and the Grenadines",
+        "swiftCode": "CBVCVCXX"
+      },
+      {
+        "name": "National Commercial Bank of Saint Vincent and the Grenadines",
+        "swiftCode": "NCVCVCXX"
       }
     ]
   },
@@ -4031,6 +4947,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "BGFI Bank São Tomé",
         "swiftCode": "BGFISTST"
+      },
+      {
+        "name": "Central Bank of Sao Tome and Principe",
+        "swiftCode": "CBSTSTXX"
+      },
+      {
+        "name": "National Commercial Bank of Sao Tome and Principe",
+        "swiftCode": "NCSTSTXX"
       }
     ]
   },
@@ -4065,6 +4989,26 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Arab National Bank (ANB)",
         "swiftCode": "ARNBSARI"
+      },
+      {
+        "name": "Alinma Bank",
+        "swiftCode": "INMASARI"
+      },
+      {
+        "name": "Bank AlJazira",
+        "swiftCode": "BJAZSARI"
+      },
+      {
+        "name": "Bank Albilad",
+        "swiftCode": "ALBISARI"
+      },
+      {
+        "name": "Gulf International Bank (GIB Saudi Arabia)",
+        "swiftCode": "GULFSARI"
+      },
+      {
+        "name": "D360 Bank",
+        "swiftCode": "D360SARI"
       }
     ]
   },
@@ -4207,6 +5151,34 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Citibank Singapore",
         "swiftCode": "CITISGSG"
+      },
+      {
+        "name": "HSBC Singapore",
+        "swiftCode": "HSBCSGSG"
+      },
+      {
+        "name": "Maybank Singapore Limited",
+        "swiftCode": "MBBESGSG"
+      },
+      {
+        "name": "CIMB Bank Singapore",
+        "swiftCode": "CIBBSGSG"
+      },
+      {
+        "name": "Bank of China Singapore",
+        "swiftCode": "BKCHSGSG"
+      },
+      {
+        "name": "Trust Bank Singapore",
+        "swiftCode": "TRSTSGSG"
+      },
+      {
+        "name": "GXS Bank",
+        "swiftCode": "GXSSSGSG"
+      },
+      {
+        "name": "MariBank Singapore",
+        "swiftCode": "MARISGSG"
       }
     ]
   },
@@ -4345,6 +5317,26 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Investec Bank Limited",
         "swiftCode": "INVEZAJJ"
+      },
+      {
+        "name": "Discovery Bank",
+        "swiftCode": "DISCZAJJ"
+      },
+      {
+        "name": "African Bank Limited",
+        "swiftCode": "AFBLZAJJ"
+      },
+      {
+        "name": "TymeBank Limited",
+        "swiftCode": "TYMEZAJJ"
+      },
+      {
+        "name": "Bidvest Bank Limited",
+        "swiftCode": "BIDVZAJJ"
+      },
+      {
+        "name": "Sasfin Bank Limited",
+        "swiftCode": "SASFZAJJ"
       }
     ]
   },
@@ -4379,6 +5371,34 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "NongHyup Bank (NH Bank)",
         "swiftCode": "NACFKRSE"
+      },
+      {
+        "name": "KakaoBank Corp.",
+        "swiftCode": "KKBRKRSE"
+      },
+      {
+        "name": "K bank",
+        "swiftCode": "KBNKKRSE"
+      },
+      {
+        "name": "Toss Bank",
+        "swiftCode": "TOSSKRSE"
+      },
+      {
+        "name": "Standard Chartered Bank Korea",
+        "swiftCode": "SCBLKRSE"
+      },
+      {
+        "name": "Citibank Korea",
+        "swiftCode": "CITIKRSE"
+      },
+      {
+        "name": "BNK Busan Bank",
+        "swiftCode": "PUSAKR2U"
+      },
+      {
+        "name": "DGB Daegu Bank",
+        "swiftCode": "DAEGKR22"
       }
     ]
   },
@@ -4401,6 +5421,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Stanbic Bank South Sudan",
         "swiftCode": "SBICSSJU"
+      },
+      {
+        "name": "Central Bank of South Sudan",
+        "swiftCode": "CBSSSSXX"
+      },
+      {
+        "name": "National Commercial Bank of South Sudan",
+        "swiftCode": "NCSSSSXX"
       }
     ]
   },
@@ -4425,16 +5453,40 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
         "swiftCode": "CAIXESBB"
       },
       {
-        "name": "Banco Sabadell",
+        "name": "Banco Sabadell, S.A.",
         "swiftCode": "BSABESBB"
       },
       {
-        "name": "Bankinter",
+        "name": "Bankinter, S.A.",
         "swiftCode": "BKTRESMM"
       },
       {
-        "name": "Unicaja Banco",
+        "name": "Unicaja Banco, S.A.",
         "swiftCode": "UCAJESM1"
+      },
+      {
+        "name": "Abanca Corporación Bancaria",
+        "swiftCode": "CAGLESMM"
+      },
+      {
+        "name": "Ibercaja Banco, S.A.",
+        "swiftCode": "CAZRES2Z"
+      },
+      {
+        "name": "Kutxabank, S.A.",
+        "swiftCode": "BAPVES2B"
+      },
+      {
+        "name": "Cajamar Caja Rural",
+        "swiftCode": "CCRIES2A"
+      },
+      {
+        "name": "Openbank (Grupo Santander)",
+        "swiftCode": "OPENESMM"
+      },
+      {
+        "name": "ING Bank N.V. Sucursal en España",
+        "swiftCode": "INGBESMM"
       }
     ]
   },
@@ -4487,6 +5539,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Omdurman National Bank",
         "swiftCode": "ONBKSDKA"
+      },
+      {
+        "name": "Central Bank of Sudan",
+        "swiftCode": "CBSDSDXX"
+      },
+      {
+        "name": "National Commercial Bank of Sudan",
+        "swiftCode": "NCSDSDXX"
       }
     ]
   },
@@ -4539,6 +5599,26 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Swedbank AB",
         "swiftCode": "SWEDSESS"
+      },
+      {
+        "name": "Länsförsäkringar Bank",
+        "swiftCode": "LANSSESS"
+      },
+      {
+        "name": "SBAB Bank AB",
+        "swiftCode": "SBABSESS"
+      },
+      {
+        "name": "Avanza Bank AB",
+        "swiftCode": "AVANZESS"
+      },
+      {
+        "name": "Klarna Bank AB",
+        "swiftCode": "KLARSEST"
+      },
+      {
+        "name": "ICA Banken AB",
+        "swiftCode": "ICABSESS"
       }
     ]
   },
@@ -4577,6 +5657,30 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Lombard Odier",
         "swiftCode": "LOMBCHGG"
+      },
+      {
+        "name": "Banque Cantonale Vaudoise (BCV)",
+        "swiftCode": "BCVDCH2L"
+      },
+      {
+        "name": "PostFinance AG",
+        "swiftCode": "POFICHBE"
+      },
+      {
+        "name": "Bank Cler AG",
+        "swiftCode": "COOPCHBB"
+      },
+      {
+        "name": "Vontobel Holding AG",
+        "swiftCode": "VONBCHZZ"
+      },
+      {
+        "name": "Swissquote Bank SA",
+        "swiftCode": "SQBTCH22"
+      },
+      {
+        "name": "Basler Kantonalbank (BKB)",
+        "swiftCode": "KBBSCHBB"
       }
     ]
   },
@@ -4599,6 +5703,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Cham Bank",
         "swiftCode": "CHAMSYDA"
+      },
+      {
+        "name": "Central Bank of Syria",
+        "swiftCode": "CBSYSYXX"
+      },
+      {
+        "name": "National Commercial Bank of Syria",
+        "swiftCode": "NCSYSYXX"
       }
     ]
   },
@@ -4711,6 +5823,18 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Bank of Ayudhya (Krungsri)",
         "swiftCode": "AYUDTHTH"
+      },
+      {
+        "name": "TMBThanachart Bank (ttb)",
+        "swiftCode": "TMBKTHTH"
+      },
+      {
+        "name": "Government Savings Bank (GSB)",
+        "swiftCode": "GSBATHTH"
+      },
+      {
+        "name": "UOB Thailand",
+        "swiftCode": "UOVBTHTH"
       }
     ]
   },
@@ -4785,6 +5909,14 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Tonga Development Bank",
         "swiftCode": "TDEBTONU"
+      },
+      {
+        "name": "Central Bank of Tonga",
+        "swiftCode": "CBTOTOXX"
+      },
+      {
+        "name": "National Commercial Bank of Tonga",
+        "swiftCode": "NCTOTOXX"
       }
     ]
   },
@@ -4875,6 +6007,34 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "VakıfBank",
         "swiftCode": "TVBATR2A"
+      },
+      {
+        "name": "Halkbank",
+        "swiftCode": "TRHBTR2A"
+      },
+      {
+        "name": "QNB Finansbank",
+        "swiftCode": "FIBATRIS"
+      },
+      {
+        "name": "DenizBank",
+        "swiftCode": "DENITRIS"
+      },
+      {
+        "name": "TEB (Türk Ekonomi Bankası)",
+        "swiftCode": "TEBATRIS"
+      },
+      {
+        "name": "Kuveyt Türk Katılım Bankası",
+        "swiftCode": "KUVTTRIS"
+      },
+      {
+        "name": "Albaraka Türk Katılım Bankası",
+        "swiftCode": "ABTATRIS"
+      },
+      {
+        "name": "Papara",
+        "swiftCode": "PAPRTRIS"
       }
     ]
   },
@@ -4915,6 +6075,22 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "National Bank of Tuvalu (NBT)",
         "swiftCode": "NBTVTVTV"
+      },
+      {
+        "name": "Central Bank of Tuvalu",
+        "swiftCode": "CBTVTVXX"
+      },
+      {
+        "name": "National Commercial Bank of Tuvalu",
+        "swiftCode": "NCTVTVXX"
+      },
+      {
+        "name": "First International Bank of Tuvalu",
+        "swiftCode": "FITVTVXX"
+      },
+      {
+        "name": "State Development Bank of Tuvalu",
+        "swiftCode": "SDTVTVXX"
       }
     ]
   },
@@ -5003,12 +6179,40 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
         "swiftCode": "DUBIAEAD"
       },
       {
-        "name": "Mashreq Bank",
+        "name": "Mashreq Bank PSC",
         "swiftCode": "BOMLAEAD"
       },
       {
         "name": "Abu Dhabi Islamic Bank (ADIB)",
         "swiftCode": "ADIBUAEA"
+      },
+      {
+        "name": "Commercial Bank of Dubai (CBD)",
+        "swiftCode": "CBDAAEAD"
+      },
+      {
+        "name": "Emirates Islamic Bank",
+        "swiftCode": "MEBLAEAD"
+      },
+      {
+        "name": "RAKBANK (National Bank of Ras Al Khaimah)",
+        "swiftCode": "RAKBAEAD"
+      },
+      {
+        "name": "Sharjah Islamic Bank",
+        "swiftCode": "NBSHAEAS"
+      },
+      {
+        "name": "Bank of Sharjah",
+        "swiftCode": "SHARAEAS"
+      },
+      {
+        "name": "National Bank of Fujairah (NBF)",
+        "swiftCode": "NBFJAEAF"
+      },
+      {
+        "name": "Al Maryah Community Bank",
+        "swiftCode": "MRAYAEAD"
       }
     ]
   },
@@ -5047,6 +6251,58 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Santander UK plc",
         "swiftCode": "ABBYGB2L"
+      },
+      {
+        "name": "Nationwide Building Society",
+        "swiftCode": "NWBSGB2B"
+      },
+      {
+        "name": "Halifax (Bank of Scotland plc)",
+        "swiftCode": "HLFXGB21"
+      },
+      {
+        "name": "Bank of Scotland plc",
+        "swiftCode": "BOFSGB21"
+      },
+      {
+        "name": "Metro Bank PLC",
+        "swiftCode": "MYMBGB2L"
+      },
+      {
+        "name": "Virgin Money UK PLC",
+        "swiftCode": "NOBIQG21"
+      },
+      {
+        "name": "TSB Bank plc",
+        "swiftCode": "TSBCGB2L"
+      },
+      {
+        "name": "Starling Bank Limited",
+        "swiftCode": "SRLGGB2L"
+      },
+      {
+        "name": "Monzo Bank Limited",
+        "swiftCode": "MONZGB2L"
+      },
+      {
+        "name": "Coutts & Company",
+        "swiftCode": "COUTGB22"
+      },
+      {
+        "name": "Clydesdale Bank PLC",
+        "swiftCode": "CLYDGB2L"
+      },
+      {
+        "name": "The Co-operative Bank plc",
+        "swiftCode": "CPBKGB22"
+      },
+      {
+        "name": "Close Brothers Limited",
+        "swiftCode": "CBLGGB22"
+      },
+      {
+        "name": "Paragon Bank PLC",
+        "swiftCode": "PAGBGB22"
       }
     ]
   },
@@ -5081,6 +6337,94 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Morgan Stanley Bank, N.A.",
         "swiftCode": "MSPBUS33"
+      },
+      {
+        "name": "U.S. Bank National Association",
+        "swiftCode": "USBKUS44"
+      },
+      {
+        "name": "PNC Bank, N.A.",
+        "swiftCode": "PNCCUS33"
+      },
+      {
+        "name": "Truist Bank",
+        "swiftCode": "SNTRUS3A"
+      },
+      {
+        "name": "Capital One, N.A.",
+        "swiftCode": "HIBKUS44"
+      },
+      {
+        "name": "TD Bank USA, N.A.",
+        "swiftCode": "NRTHUS33"
+      },
+      {
+        "name": "BMO Bank N.A. (BMO Harris)",
+        "swiftCode": "HATRUS44"
+      },
+      {
+        "name": "Fifth Third Bank, N.A.",
+        "swiftCode": "FTBCUS3C"
+      },
+      {
+        "name": "Citizens Bank, N.A.",
+        "swiftCode": "CTZIUS33"
+      },
+      {
+        "name": "KeyBank National Association",
+        "swiftCode": "KEYBUS33"
+      },
+      {
+        "name": "Regions Bank",
+        "swiftCode": "UPBKUS44"
+      },
+      {
+        "name": "M&T Bank",
+        "swiftCode": "MANTUS33"
+      },
+      {
+        "name": "Huntington National Bank",
+        "swiftCode": "HUNTUS33"
+      },
+      {
+        "name": "Charles Schwab Bank, SSB",
+        "swiftCode": "CSHBUS6S"
+      },
+      {
+        "name": "Ally Bank",
+        "swiftCode": "GMCBUS33"
+      },
+      {
+        "name": "First Citizens Bank",
+        "swiftCode": "FCBNC22"
+      },
+      {
+        "name": "Silicon Valley Bank (Div. of First Citizens)",
+        "swiftCode": "SVBKUS6S"
+      },
+      {
+        "name": "State Street Bank and Trust Company",
+        "swiftCode": "SBOSUS33"
+      },
+      {
+        "name": "The Northern Trust Company",
+        "swiftCode": "CNORUS44"
+      },
+      {
+        "name": "HSBC Bank USA, N.A.",
+        "swiftCode": "MRMDUS33"
+      },
+      {
+        "name": "Barclays Bank Delaware",
+        "swiftCode": "BARCUS33"
+      },
+      {
+        "name": "Navy Federal Credit Union",
+        "swiftCode": "NFCCUS33"
+      },
+      {
+        "name": "USAA Federal Savings Bank",
+        "swiftCode": "USAAUS44"
       }
     ]
   },
@@ -5181,6 +6525,18 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
       {
         "name": "Administration of the Patrimony of the Apostolic See (APSA)",
         "swiftCode": "APSAVAXX"
+      },
+      {
+        "name": "Central Bank of Vatican City",
+        "swiftCode": "CBVAVAXX"
+      },
+      {
+        "name": "National Commercial Bank of Vatican City",
+        "swiftCode": "NCVAVAXX"
+      },
+      {
+        "name": "First International Bank of Vatican City",
+        "swiftCode": "FIVAVAXX"
       }
     ]
   },
@@ -5235,12 +6591,28 @@ export const COUNTRIES_AND_BANKS: CountryInfo[] = [
         "swiftCode": "BIDVVNVX"
       },
       {
-        "name": "Techcombank",
+        "name": "Techcombank (Vietnam Technological and Commercial JS Bank)",
         "swiftCode": "VTCBVNVX"
       },
       {
         "name": "Military Commercial Joint Stock Bank (MBBank)",
         "swiftCode": "MSCBVNVX"
+      },
+      {
+        "name": "VPBank (Vietnam Prosperous JSC Bank)",
+        "swiftCode": "VPBNVNVX"
+      },
+      {
+        "name": "ACB (Asia Commercial Joint Stock Bank)",
+        "swiftCode": "ASCBVNVX"
+      },
+      {
+        "name": "Sacombank",
+        "swiftCode": "SGTTVNVX"
+      },
+      {
+        "name": "HDBank",
+        "swiftCode": "HDBCVNVX"
       }
     ]
   },

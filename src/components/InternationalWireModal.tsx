@@ -6,15 +6,14 @@ import {
   Search,
   Building,
   CheckCircle2,
-  Lock,
   ShieldCheck,
   Zap,
-  ArrowRight,
+  ChevronDown,
+  Check,
+  ExternalLink,
+  Layers,
   Sparkles,
-  HelpCircle,
-  Clock,
-  Landmark,
-  ChevronDown
+  Info
 } from 'lucide-react';
 import { BankUser, BankTransaction } from '../lib/types.ts';
 import { bankStore } from '../lib/bankStore.ts';
@@ -34,7 +33,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
   onSuccess,
 }) => {
   // Country Selection
-  const [selectedCountryCode, setSelectedCountryCode] = useState<string>('GB');
+  const [selectedCountryCode, setSelectedCountryCode] = useState<string>('US');
   const [countrySearch, setCountrySearch] = useState<string>('');
   const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState<boolean>(false);
 
@@ -43,7 +42,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
   const [swiftCode, setSwiftCode] = useState<string>('');
   const [isCustomBank, setIsCustomBank] = useState<boolean>(false);
   const [bankSearch, setBankSearch] = useState<string>('');
-  const [isBankDropdownOpen, setIsBankDropdownOpen] = useState<boolean>(false);
+  const [showAllBanksSheet, setShowAllBanksSheet] = useState<boolean>(false);
 
   // Beneficiary Info
   const [recipientName, setRecipientName] = useState<string>('');
@@ -61,7 +60,6 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
   const [dispatchedTx, setDispatchedTx] = useState<BankTransaction | null>(null);
 
   const countryDropdownRef = useRef<HTMLDivElement>(null);
-  const bankDropdownRef = useRef<HTMLDivElement>(null);
 
   // Active selected country
   const selectedCountry: CountryInfo = useMemo(() => {
@@ -71,7 +69,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
     );
   }, [selectedCountryCode]);
 
-  // When selected country changes, default to first bank in that country
+  // When selected country changes, automatically select its primary bank
   useEffect(() => {
     if (selectedCountry && selectedCountry.banks && selectedCountry.banks.length > 0) {
       setSelectedBankName(selectedCountry.banks[0].name);
@@ -91,15 +89,12 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
       if (countryDropdownRef.current && !countryDropdownRef.current.contains(e.target as Node)) {
         setIsCountryDropdownOpen(false);
       }
-      if (bankDropdownRef.current && !bankDropdownRef.current.contains(e.target as Node)) {
-        setIsBankDropdownOpen(false);
-      }
     };
     document.addEventListener('mousedown', handleOutsideClick);
     return () => document.removeEventListener('mousedown', handleOutsideClick);
   }, []);
 
-  // Filtered countries for instant search
+  // Filtered countries for search
   const filteredCountries = useMemo(() => {
     if (!countrySearch.trim()) return COUNTRIES_AND_BANKS;
     const q = countrySearch.toLowerCase().trim();
@@ -137,7 +132,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
     setSelectedBankName(b.name);
     setSwiftCode(b.swiftCode);
     setIsCustomBank(false);
-    setIsBankDropdownOpen(false);
+    setShowAllBanksSheet(false);
     setBankSearch('');
   };
 
@@ -145,7 +140,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
     setIsCustomBank(true);
     setSelectedBankName('');
     setSwiftCode('');
-    setIsBankDropdownOpen(false);
+    setShowAllBanksSheet(false);
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -246,7 +241,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
                 </h3>
               </div>
               <p className="text-[10px] text-indigo-300 truncate">
-                Direct SWIFT GPI Clearing to Any Country & Any Bank Worldwide
+                Direct SWIFT GPI Clearing to Any Country & Every Bank Worldwide
               </p>
             </div>
           </div>
@@ -269,7 +264,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
           </span>
           <span className="text-emerald-700 font-bold flex items-center gap-1">
             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-            <span>194 Nations Connected</span>
+            <span>194 Countries • 1,185+ Banks Active</span>
           </span>
         </div>
 
@@ -321,7 +316,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
             </div>
           ) : (
             /* ============================================================== */
-            /* WIRE SUBMISSION FORM WITH ANY COUNTRY & ANY BANK PICKER       */
+            /* WIRE SUBMISSION FORM WITH ANY COUNTRY & ALL BANKS             */
             /* ============================================================== */
             <form onSubmit={handleSubmit} className="space-y-4">
               {error && (
@@ -336,7 +331,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
                 <div className="flex items-center justify-between">
                   <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
                     <span>1. Destination Country</span>
-                    <span className="text-[10px] text-indigo-600 font-normal">({COUNTRIES_AND_BANKS.length} countries available)</span>
+                    <span className="text-[10px] text-indigo-600 font-normal">({COUNTRIES_AND_BANKS.length} countries)</span>
                   </label>
                   <span className="text-[10px] font-bold text-slate-500">
                     Currency: <strong className="text-indigo-700">{selectedCountry.currency} ({selectedCountry.currencySymbol})</strong>
@@ -351,13 +346,13 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
                     className="w-full px-3.5 py-3 bg-slate-50 hover:bg-slate-100/80 border border-slate-200 rounded-2xl flex items-center justify-between transition-colors cursor-pointer text-left shadow-xs"
                   >
                     <div className="flex items-center gap-2.5 min-w-0">
-                      <span className="text-xl shrink-0">{selectedCountry.flag || '🌐'}</span>
+                      <span className="text-2xl shrink-0">{selectedCountry.flag || '🌐'}</span>
                       <div className="min-w-0">
                         <p className="font-bold text-slate-900 text-xs sm:text-sm truncate">
                           {selectedCountry.country}
                         </p>
                         <p className="text-[10px] text-slate-500">
-                          Code: {selectedCountry.code} • 1 USD = {selectedCountry.exchangeRateToUSD} {selectedCountry.currency}
+                          {selectedCountry.banks.length} registered banks • 1 USD = {selectedCountry.exchangeRateToUSD} {selectedCountry.currency}
                         </p>
                       </div>
                     </div>
@@ -366,13 +361,13 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
 
                   {/* Searchable Country Dropdown Menu */}
                   {isCountryDropdownOpen && (
-                    <div className="absolute top-full left-0 right-0 z-30 mt-1.5 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-64 animate-in fade-in">
+                    <div className="absolute top-full left-0 right-0 z-30 mt-1.5 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-72 animate-in fade-in">
                       {/* Search Bar */}
                       <div className="p-2.5 border-b border-slate-100 bg-slate-50 flex items-center gap-2">
                         <Search className="w-4 h-4 text-slate-400 shrink-0" />
                         <input
                           type="text"
-                          placeholder="Search any country (e.g. France, Japan, Kenya, Brazil)..."
+                          placeholder="Search any country (e.g. United States, United Kingdom, France, Nigeria, Japan)..."
                           value={countrySearch}
                           onChange={e => setCountrySearch(e.target.value)}
                           autoFocus
@@ -414,7 +409,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
                                   <span className="text-xs truncate">{c.country}</span>
                                 </div>
                                 <div className="text-[10px] text-slate-500 font-mono shrink-0 pl-2">
-                                  {c.currency} ({c.exchangeRateToUSD})
+                                  {c.banks.length} banks • {c.currency}
                                 </div>
                               </button>
                             );
@@ -426,116 +421,167 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
                 </div>
               </div>
 
-              {/* STEP 2: BANK SELECTION INSIDE THE SELECTED COUNTRY */}
-              <div className="space-y-1.5" ref={bankDropdownRef}>
+              {/* ============================================================== */}
+              {/* STEP 2: ALL BANKS IN THE SELECTED COUNTRY                       */}
+              {/* ============================================================== */}
+              <div className="space-y-2 p-3.5 bg-slate-50/70 border border-slate-200/90 rounded-2xl">
                 <div className="flex items-center justify-between">
-                  <label className="text-[11px] font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                    <span>2. Destination Bank in {selectedCountry.country}</span>
-                  </label>
-                  {!isCustomBank ? (
-                    <button
-                      type="button"
-                      onClick={handleEnableCustomBank}
-                      className="text-[10px] text-indigo-600 hover:text-indigo-800 font-bold underline cursor-pointer"
-                    >
-                      + Enter other bank manually
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => {
-                        if (selectedCountry.banks && selectedCountry.banks.length > 0) {
-                          handleSelectBank(selectedCountry.banks[0]);
-                        }
-                      }}
-                      className="text-[10px] text-indigo-600 hover:text-indigo-800 font-bold underline cursor-pointer"
-                    >
-                      ← Choose from {selectedCountry.country} banks list
-                    </button>
-                  )}
+                  <div className="flex items-center gap-1.5">
+                    <Building className="w-4 h-4 text-indigo-700 shrink-0" />
+                    <label className="text-[11px] font-extrabold uppercase tracking-wider text-slate-900">
+                      2. Destination Bank in {selectedCountry.country}
+                    </label>
+                  </div>
+                  <span className="px-2 py-0.5 rounded-full bg-indigo-100 text-indigo-800 font-bold text-[10px]">
+                    {selectedCountry.banks.length} Banks Available
+                  </span>
                 </div>
 
                 {!isCustomBank ? (
-                  /* Bank Dropdown Selector */
-                  <div className="relative">
-                    <button
-                      type="button"
-                      onClick={() => setIsBankDropdownOpen(!isBankDropdownOpen)}
-                      className="w-full px-3.5 py-3 bg-slate-50 hover:bg-slate-100/80 border border-slate-200 rounded-2xl flex items-center justify-between transition-colors cursor-pointer text-left shadow-xs"
-                    >
-                      <div className="flex items-center gap-2.5 min-w-0">
-                        <div className="w-8 h-8 rounded-xl bg-indigo-100 text-indigo-700 flex items-center justify-center font-bold shrink-0">
-                          <Building className="w-4 h-4" />
+                  <>
+                    {/* Native Select Dropdown: Always accessible for 1-tap browsing of all banks */}
+                    <div className="space-y-1">
+                      <div className="flex items-center justify-between text-[10px] text-slate-500 font-medium">
+                        <span>Select from all {selectedCountry.banks.length} registered banks:</span>
+                        <button
+                          type="button"
+                          onClick={() => setShowAllBanksSheet(true)}
+                          className="text-indigo-600 hover:text-indigo-800 font-bold flex items-center gap-0.5 cursor-pointer"
+                        >
+                          <Layers className="w-3 h-3" />
+                          <span>Browse Full Bank Directory</span>
+                        </button>
+                      </div>
+
+                      <div className="relative">
+                        <select
+                          value={selectedBankName}
+                          onChange={e => {
+                            const found = selectedCountry.banks.find(b => b.name === e.target.value);
+                            if (found) handleSelectBank(found);
+                          }}
+                          className="w-full px-3.5 py-2.5 bg-white border border-slate-300 rounded-xl text-xs font-semibold text-slate-900 outline-none focus:border-indigo-600 cursor-pointer shadow-xs"
+                        >
+                          {selectedCountry.banks.map((b, idx) => (
+                            <option key={idx} value={b.name}>
+                              {b.name} ({b.swiftCode})
+                            </option>
+                          ))}
+                        </select>
+                      </div>
+                    </div>
+
+                    {/* Active Bank Confirmation Card */}
+                    <div className="p-3 bg-gradient-to-r from-emerald-50 via-indigo-50/50 to-white border border-emerald-200 rounded-xl flex items-start justify-between gap-2 shadow-xs">
+                      <div className="flex items-start gap-2.5 min-w-0">
+                        <div className="w-8 h-8 rounded-lg bg-emerald-600 text-white flex items-center justify-center shrink-0 shadow-xs">
+                          <Check className="w-4 h-4" />
                         </div>
                         <div className="min-w-0">
-                          <p className="font-bold text-slate-900 text-xs sm:text-sm truncate">
-                            {selectedBankName || 'Select a bank...'}
+                          <p className="font-extrabold text-xs text-slate-900 truncate">
+                            {selectedBankName}
                           </p>
-                          <p className="text-[10px] text-indigo-700 font-mono">
-                            SWIFT / BIC: <strong>{swiftCode}</strong>
-                          </p>
+                          <div className="flex flex-wrap items-center gap-2 mt-0.5 text-[10px]">
+                            <span className="font-mono font-bold text-indigo-700 bg-white px-2 py-0.5 rounded border border-indigo-200">
+                              SWIFT/BIC: {swiftCode}
+                            </span>
+                            <span className="text-emerald-700 font-medium flex items-center gap-1">
+                              <ShieldCheck className="w-3 h-3 text-emerald-600" />
+                              <span>Verified Clearing Network</span>
+                            </span>
+                          </div>
                         </div>
                       </div>
-                      <ChevronDown className={`w-4 h-4 text-slate-500 transition-transform ${isBankDropdownOpen ? 'rotate-180' : ''}`} />
-                    </button>
 
-                    {/* Bank Selection List Dropdown */}
-                    {isBankDropdownOpen && (
-                      <div className="absolute top-full left-0 right-0 z-30 mt-1.5 bg-white border border-slate-200 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-60 animate-in fade-in">
-                        {/* Search Banks */}
-                        <div className="p-2.5 border-b border-slate-100 bg-slate-50 flex items-center gap-2">
-                          <Search className="w-4 h-4 text-slate-400 shrink-0" />
-                          <input
-                            type="text"
-                            placeholder={`Search banks in ${selectedCountry.country}...`}
-                            value={bankSearch}
-                            onChange={e => setBankSearch(e.target.value)}
-                            autoFocus
-                            className="w-full bg-transparent text-xs text-slate-900 outline-none font-medium placeholder-slate-400"
-                          />
-                        </div>
+                      <button
+                        type="button"
+                        onClick={handleEnableCustomBank}
+                        className="text-[10px] text-slate-500 hover:text-indigo-700 underline font-medium shrink-0 pt-0.5 cursor-pointer"
+                      >
+                        Enter manually
+                      </button>
+                    </div>
 
-                        {/* List */}
-                        <div className="overflow-y-auto divide-y divide-slate-100 p-1 flex-1">
-                          {filteredBanks.map((b, idx) => {
+                    {/* Quick Search & Filter Chips for the country's banks */}
+                    <div className="space-y-1.5 pt-1">
+                      <div className="relative">
+                        <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+                        <input
+                          type="text"
+                          placeholder={`Filter all ${selectedCountry.banks.length} banks in ${selectedCountry.country}...`}
+                          value={bankSearch}
+                          onChange={e => setBankSearch(e.target.value)}
+                          className="w-full pl-8 pr-3 py-1.5 bg-white border border-slate-200 rounded-xl text-xs text-slate-800 placeholder-slate-400 outline-none focus:border-indigo-500"
+                        />
+                      </div>
+
+                      {/* Bank List / Chips */}
+                      <div className="max-h-36 overflow-y-auto divide-y divide-slate-100 rounded-xl bg-white border border-slate-200 p-1">
+                        {filteredBanks.length === 0 ? (
+                          <div className="p-3 text-center text-slate-500 text-[11px]">
+                            No bank matches "{bankSearch}" in {selectedCountry.country}.
+                            <button
+                              type="button"
+                              onClick={handleEnableCustomBank}
+                              className="block mx-auto mt-1 text-indigo-600 font-bold underline cursor-pointer"
+                            >
+                              Enter "{bankSearch}" as a custom bank
+                            </button>
+                          </div>
+                        ) : (
+                          filteredBanks.map((b, idx) => {
                             const isSelected = b.name === selectedBankName;
                             return (
                               <button
                                 key={idx}
                                 type="button"
                                 onClick={() => handleSelectBank(b)}
-                                className={`w-full p-2.5 rounded-xl flex items-center justify-between text-left transition-colors cursor-pointer ${
+                                className={`w-full p-2 rounded-lg flex items-center justify-between text-left transition-colors cursor-pointer ${
                                   isSelected
-                                    ? 'bg-indigo-50 text-indigo-900 font-bold'
-                                    : 'hover:bg-slate-50 text-slate-800'
+                                    ? 'bg-indigo-50/90 text-indigo-950 font-bold'
+                                    : 'hover:bg-slate-50 text-slate-700'
                                 }`}
                               >
                                 <div className="min-w-0 pr-2">
                                   <p className="text-xs truncate">{b.name}</p>
-                                  <p className="text-[10px] text-slate-400 font-mono">SWIFT: {b.swiftCode}</p>
+                                  <p className="text-[10px] text-slate-400 font-mono">BIC: {b.swiftCode}</p>
                                 </div>
-                                <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 font-mono text-[9px] font-bold shrink-0">
-                                  {b.swiftCode}
-                                </span>
+                                {isSelected ? (
+                                  <span className="w-5 h-5 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0">
+                                    <Check className="w-3 h-3" />
+                                  </span>
+                                ) : (
+                                  <span className="px-2 py-0.5 rounded bg-slate-100 text-slate-600 font-mono text-[9px] font-semibold shrink-0">
+                                    {b.swiftCode}
+                                  </span>
+                                )}
                               </button>
                             );
-                          })}
-
-                          {/* Manual Option in Dropdown */}
-                          <button
-                            type="button"
-                            onClick={handleEnableCustomBank}
-                            className="w-full p-2.5 rounded-xl text-center text-indigo-600 hover:bg-indigo-50 font-bold text-xs cursor-pointer transition-colors border-t border-slate-100"
-                          >
-                            + Enter Another Bank Manually
-                          </button>
-                        </div>
+                          })
+                        )}
                       </div>
-                    )}
-                  </div>
+                    </div>
+                  </>
                 ) : (
-                  /* Custom Bank Entry Inputs */
-                  <div className="p-3 bg-slate-50 border border-slate-200 rounded-2xl space-y-2">
+                  /* Custom Bank Manual Entry */
+                  <div className="space-y-2 bg-white p-3 rounded-xl border border-slate-200">
+                    <div className="flex justify-between items-center pb-1 border-b border-slate-100">
+                      <span className="text-[10px] font-bold text-slate-600 uppercase">
+                        Manual Bank Information
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (selectedCountry.banks && selectedCountry.banks.length > 0) {
+                            handleSelectBank(selectedCountry.banks[0]);
+                          }
+                        }}
+                        className="text-[10px] text-indigo-600 hover:text-indigo-800 font-bold underline cursor-pointer"
+                      >
+                        ← Pick from {selectedCountry.country} banks list ({selectedCountry.banks.length})
+                      </button>
+                    </div>
+
                     <div>
                       <label className="text-[10px] font-bold text-slate-600 block mb-1">
                         Bank Name in {selectedCountry.country}
@@ -543,10 +589,10 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
                       <input
                         type="text"
                         required
-                        placeholder="e.g. Credit Mutuel / Local Savings Bank"
+                        placeholder="e.g. Local Cooperative Credit Union / Regional Bank"
                         value={selectedBankName}
                         onChange={e => setSelectedBankName(e.target.value)}
-                        className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs text-slate-900 focus:border-indigo-600 outline-none"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs text-slate-900 focus:bg-white focus:border-indigo-600 outline-none"
                       />
                     </div>
                     <div>
@@ -560,7 +606,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
                         placeholder="e.g. BARCGB22XXX"
                         value={swiftCode}
                         onChange={e => setSwiftCode(e.target.value.toUpperCase())}
-                        className="w-full px-3 py-2 bg-white border border-slate-200 rounded-xl text-xs font-mono uppercase text-slate-900 focus:border-indigo-600 outline-none"
+                        className="w-full px-3 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono uppercase text-slate-900 focus:bg-white focus:border-indigo-600 outline-none"
                       />
                     </div>
                   </div>
@@ -712,7 +758,7 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
                     <>
                       <Zap className="w-4 h-4" />
                       <span>
-                        Authorize & Dispatch Wire ({selectedCountry.flag} {selectedCountry.country})
+                        Authorize & Dispatch Wire ({selectedCountry.flag} {selectedBankName || selectedCountry.country})
                       </span>
                     </>
                   )}
@@ -721,6 +767,108 @@ export const InternationalWireModal: React.FC<InternationalWireModalProps> = ({
             </form>
           )}
         </div>
+
+        {/* ============================================================== */}
+        {/* FULL DIRECTORY SHEET / DIALOG: BROWSE ALL BANKS IN COUNTRY     */}
+        {/* ============================================================== */}
+        {showAllBanksSheet && (
+          <div className="fixed inset-0 z-60 flex items-center justify-center p-3 sm:p-5 bg-slate-950/80 backdrop-blur-sm animate-in fade-in">
+            <div className="bg-white rounded-3xl max-w-lg w-full max-h-[85vh] flex flex-col overflow-hidden shadow-2xl border border-slate-200">
+              <div className="p-4 bg-slate-950 text-white flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <span className="text-xl">{selectedCountry.flag}</span>
+                  <div>
+                    <h4 className="font-extrabold text-sm sm:text-base">
+                      All Banks in {selectedCountry.country}
+                    </h4>
+                    <p className="text-[10px] text-slate-300">
+                      {selectedCountry.banks.length} financial institutions registered with SWIFT
+                    </p>
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowAllBanksSheet(false)}
+                  className="p-1 rounded-lg text-slate-400 hover:text-white"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Search Inside Bank Directory */}
+              <div className="p-3 border-b border-slate-100 bg-slate-50 flex items-center gap-2">
+                <Search className="w-4 h-4 text-slate-400 shrink-0" />
+                <input
+                  type="text"
+                  placeholder={`Search ${selectedCountry.banks.length} banks by name or BIC code...`}
+                  value={bankSearch}
+                  onChange={e => setBankSearch(e.target.value)}
+                  autoFocus
+                  className="w-full bg-transparent text-xs text-slate-900 outline-none font-medium placeholder-slate-400"
+                />
+                {bankSearch && (
+                  <button
+                    type="button"
+                    onClick={() => setBankSearch('')}
+                    className="p-1 text-slate-400 hover:text-slate-600"
+                  >
+                    <X className="w-3.5 h-3.5" />
+                  </button>
+                )}
+              </div>
+
+              {/* Full List */}
+              <div className="p-2 overflow-y-auto divide-y divide-slate-100 flex-1">
+                {filteredBanks.map((b, idx) => {
+                  const isSelected = b.name === selectedBankName;
+                  return (
+                    <button
+                      key={idx}
+                      type="button"
+                      onClick={() => handleSelectBank(b)}
+                      className={`w-full p-3 rounded-xl flex items-center justify-between text-left transition-all cursor-pointer ${
+                        isSelected
+                          ? 'bg-indigo-50 border border-indigo-200 text-indigo-950 font-bold'
+                          : 'hover:bg-slate-50 text-slate-800'
+                      }`}
+                    >
+                      <div className="min-w-0 pr-3">
+                        <p className="text-xs sm:text-sm font-semibold truncate">{b.name}</p>
+                        <p className="text-[10px] text-slate-500 font-mono mt-0.5">
+                          SWIFT / BIC: <span className="font-bold text-indigo-700">{b.swiftCode}</span>
+                        </p>
+                      </div>
+                      {isSelected ? (
+                        <div className="w-6 h-6 rounded-full bg-indigo-600 text-white flex items-center justify-center shrink-0">
+                          <Check className="w-3.5 h-3.5" />
+                        </div>
+                      ) : (
+                        <span className="px-2 py-1 rounded bg-slate-100 text-slate-700 font-mono text-[10px] font-bold shrink-0">
+                          {b.swiftCode}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Bottom bar */}
+              <div className="p-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+                <span className="text-[11px] text-slate-500">
+                  Showing {filteredBanks.length} of {selectedCountry.banks.length} banks
+                </span>
+                <button
+                  type="button"
+                  onClick={handleEnableCustomBank}
+                  className="text-indigo-600 hover:text-indigo-800 font-bold text-xs underline cursor-pointer"
+                >
+                  + Enter custom bank
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+
       </div>
     </div>
   );
