@@ -425,7 +425,7 @@ export const SupportChatWidget: React.FC<SupportChatWidgetProps> = ({
           <div className="px-4 sm:px-6 py-2 bg-slate-900/80 border-b border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400 shrink-0 backdrop-blur-sm">
             <span className="flex items-center gap-1.5 font-medium text-slate-300">
               <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
-              <span>Federal Reserve Clearing Node: <strong className="text-white font-mono">#021000089</strong></span>
+              <span>Apex Sandbox Clearing Node: <strong className="text-white font-mono">#021000089</strong></span>
             </span>
             <span className="hidden sm:flex items-center gap-2 text-[10px] text-slate-400">
               <span className="flex items-center gap-1">

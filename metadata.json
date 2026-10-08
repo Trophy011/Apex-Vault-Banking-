@@ -1,6 +1,6 @@
 {
   "name": "Apex Online Banking",
-  "description": "Premier digital banking platform offering secure internal & international transfers, transaction management, real-time live support, and executive management portal.",
+  "description": "Premier digital banking simulation and fintech demo platform offering secure internal & international transfers, transaction management, real-time live support, and executive management portal.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

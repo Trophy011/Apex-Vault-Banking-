@@ -59,7 +59,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
   return (
     <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-blue-600 selection:text-white w-full overflow-x-hidden">
       
-      {/* 1. TOP UTILITY & SEGMENT BAR (Like Wells Fargo / Chase) */}
+      {/* 0. PERSISTENT DEMO & SIMULATION PLATFORM DISCLAIMER BANNER */}
+      <div className="bg-amber-400 text-slate-950 text-xs py-2 px-4 font-bold border-b border-amber-500 flex items-center justify-center gap-2 text-center shadow-xs">
+        <Sparkles className="w-4 h-4 text-amber-900 shrink-0" />
+        <span>
+          PORTFOLIO DEMONSTRATION &amp; SIMULATION PLATFORM • Apex is an interactive fintech prototype. All accounts, balances, and cards are simulated virtual demo data. Do not enter real financial credentials.
+        </span>
+      </div>
+
+      {/* 1. TOP UTILITY & SEGMENT BAR */}
       <div className="bg-slate-900 text-slate-300 text-xs py-2 px-4 border-b border-slate-800">
         <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
           {/* Banking Segment Tabs */}
@@ -83,17 +91,17 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
           <div className="flex items-center gap-3 sm:gap-4 text-[11px] text-slate-400">
             <span className="flex items-center gap-1 text-slate-300">
               <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
-              Member FDIC • Fed Clearing #021000089
+              Fintech Sandbox Simulator • Virtual Ledger
             </span>
             <button
               onClick={() => window.dispatchEvent(new CustomEvent('apex:open-support'))}
               className="hover:text-blue-300 text-slate-300 flex items-center gap-1 transition-colors font-medium"
             >
               <Headphones className="w-3.5 h-3.5" />
-              <span>24/7 Support</span>
+              <span>24/7 Demo Support</span>
             </button>
             <span className="hidden md:inline text-slate-500">|</span>
-            <span className="hidden md:inline text-slate-400">Español</span>
+            <span className="hidden md:inline text-slate-400">Sandbox Environment</span>
           </div>
         </div>
       </div>
@@ -112,7 +120,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
                 APEX <span className="text-blue-700">BANK</span>
               </span>
               <span className="text-[10px] font-bold uppercase tracking-widest text-slate-500 block -mt-1">
-                National Association • Est. 1928
+                Fintech Prototype Simulator • Sandbox Ledger
               </span>
             </div>
           </div>
@@ -166,7 +174,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
                 Platinum Rewards Cards
               </a>
               <a href="#transfers" onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-3 rounded-lg hover:bg-blue-50 hover:text-blue-700">
-                Global SWIFT & Fedwire Remittances
+                Global SWIFT Remittances
               </a>
               <a href="#rates" onClick={() => setMobileMenuOpen(false)} className="py-2.5 px-3 rounded-lg hover:bg-blue-50 hover:text-blue-700">
                 Live FX Exchange Rates
@@ -204,7 +212,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
               </h1>
 
               <p className="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl font-normal">
-                Enjoy everyday checking with zero monthly service fees on eligible direct deposits, high-yield <strong>4.85% APY</strong> savings, and real-time domestic Fedwire & international SWIFT transfers.
+                Enjoy everyday checking with zero monthly service fees on eligible direct deposits, high-yield <strong>4.85% APY</strong> savings, and real-time instant internal &amp; international SWIFT transfers.
               </p>
 
               {/* Major Bank Welcome Offer Box (Like Chase / Wells Fargo) */}
@@ -244,11 +252,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
               <div className="pt-2 flex flex-wrap items-center gap-6 text-xs text-slate-500 font-medium">
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span>Member FDIC Insured to $250,000</span>
+                  <span>Simulated Deposit Protection Model</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span>Federal Reserve Node #021000089</span>
+                  <span>Sandbox Virtual Clearing Node #021000089</span>
                 </div>
                 <div className="flex items-center gap-1.5">
                   <CheckCircle2 className="w-4 h-4 text-emerald-600" />
@@ -280,7 +288,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
                     </span>
                   </div>
                   <p className="text-[10px] text-slate-500 mt-1">
-                    Central clearing operations active for domestic Fedwire & global SWIFT.
+                    Central clearing operations active for domestic &amp; global SWIFT simulation.
                   </p>
                 </div>
               </div>
@@ -349,7 +357,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
                 <Globe2 className="w-6 h-6" />
               </div>
               <h4 className="font-bold text-xs sm:text-sm text-slate-900">Global Wires</h4>
-              <p className="text-[10px] text-slate-500 mt-1">SWIFT & Fedwire in 180+ nations</p>
+              <p className="text-[10px] text-slate-500 mt-1">SWIFT &amp; Instant in 194 nations</p>
             </div>
 
             {/* 5. Loans */}
@@ -482,7 +490,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
                 <li>• 12x the national savings rate average</li>
                 <li>• Automatic Save As You Go® purchase roundups</li>
                 <li>• Zero minimum balance maintenance fees</li>
-                <li>• Full FDIC coverage up to $250,000 per depositor</li>
+                <li>• Simulated deposit protection tier up to $250,000</li>
               </ul>
               <button
                 onClick={() => onOpenAuth('register')}
@@ -499,11 +507,11 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
               </div>
               <div>
                 <h4 className="text-lg font-bold text-slate-950">Global SWIFT Remittance</h4>
-                <p className="text-xs text-slate-500 mt-1">Direct interbank wire settlement</p>
+                <p className="text-xs text-slate-500 mt-1">Direct interbank wire settlement simulation</p>
               </div>
               <ul className="space-y-2 text-xs text-slate-600">
                 <li>• Same-day execution for wires submitted by 5 PM ET</li>
-                <li>• Direct routing to 180+ countries and 50+ currencies</li>
+                <li>• Direct routing to 194 countries and 50+ currencies</li>
                 <li>• Official electronic settlement advice receipt generated</li>
                 <li>• Waived transfer fees on eligible relationship balances</li>
               </ul>
@@ -526,13 +534,13 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
           <div className="max-w-3xl mx-auto bg-slate-50 rounded-3xl p-6 sm:p-10 border border-slate-200 shadow-sm space-y-6">
             <div className="text-center">
               <span className="text-[10px] font-bold uppercase tracking-wider text-blue-700 bg-blue-100/60 px-3 py-1 rounded-full">
-                Real-Time Interbank Clearing
+                Real-Time Sandbox Clearing Matrix
               </span>
               <h3 className="text-2xl sm:text-3xl font-black text-slate-950 mt-2">
                 Live Global Wire Rate Calculator
               </h3>
               <p className="text-xs text-slate-500 mt-1">
-                Calculate real-time currency conversion rates powered by Apex Central Fedwire Clearing.
+                Calculate real-time currency conversion rates powered by Apex Real-Time FX Matrix.
               </p>
             </div>
 
@@ -599,9 +607,9 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
             
             <div className="p-5 rounded-2xl bg-slate-800/60 border border-slate-700/60 space-y-2">
               <ShieldCheck className="w-8 h-8 text-blue-400 mx-auto" />
-              <h4 className="font-bold text-sm">FDIC Insurance</h4>
+              <h4 className="font-bold text-sm">Simulated Protection Model</h4>
               <p className="text-xs text-slate-400 leading-relaxed">
-                Direct deposits backed up to $250,000 per insured category.
+                Direct simulated deposits backed up to $250,000 in sandbox environment.
               </p>
             </div>
 
@@ -657,7 +665,7 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
             <div className="space-y-2">
               <h5 className="font-bold text-white uppercase text-[11px] tracking-wider">Commercial & Treasury</h5>
               <p className="hover:text-white cursor-pointer">Commercial Checking</p>
-              <p className="hover:text-white cursor-pointer">Fedwire Node #021000089</p>
+              <p className="hover:text-white cursor-pointer">Clearing Simulator #021000089</p>
               <p className="hover:text-white cursor-pointer">SWIFT Remittance</p>
               <p className="hover:text-white cursor-pointer">Treasury Management</p>
             </div>
@@ -666,14 +674,14 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
               <h5 className="font-bold text-white uppercase text-[11px] tracking-wider">Security & Legal</h5>
               <p className="hover:text-white cursor-pointer">Privacy & Data Policy</p>
               <p className="hover:text-white cursor-pointer">Zero Liability Policy</p>
-              <p className="hover:text-white cursor-pointer">Regulation E Disclosures</p>
+              <p className="hover:text-white cursor-pointer">Demo Sandbox Disclosures</p>
               <p className="hover:text-white cursor-pointer">Security Center</p>
             </div>
 
             <div className="space-y-2 col-span-2 md:col-span-1">
               <h5 className="font-bold text-white uppercase text-[11px] tracking-wider">Apex Online Banking</h5>
               <p className="text-[11px] text-slate-500">
-                Official depository institution. FDIC Certificate #38291.
+                Interactive fintech banking prototype and simulation platform.
               </p>
               <button
                 onClick={() => window.dispatchEvent(new CustomEvent('apex:open-support'))}
@@ -685,15 +693,18 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onOpenAuth }) => {
           </div>
 
           {/* Official Disclosures */}
-          <div className="space-y-3 text-[10px] text-slate-500 leading-relaxed">
-            <p>
-              Deposit products offered by Apex Bank, N.A. Member FDIC. Equal Housing Lender. FICO is a registered trademark of Fair Isaac Corporation in the United States and other countries.
+          <div className="space-y-3 text-[10px] text-slate-500 leading-relaxed bg-slate-900/80 p-4 rounded-2xl border border-slate-800">
+            <p className="text-slate-300 font-semibold">
+              IMPORTANT DEMONSTRATION &amp; SIMULATION NOTICE:
             </p>
             <p>
-              Annual Percentage Yield (APY) of 4.85% for Way2Save® Savings is accurate as of current date and subject to change without notice. Terms and conditions apply to $300 checking welcome bonus.
+              Apex Online Banking is a software demonstration and fintech simulation platform. All accounts, balances, transactions, and cards are simulated virtual demo data for evaluation and testing purposes. Apex is not a real chartered banking institution, does not solicit real monetary deposits, and does not conduct actual financial transactions. Do not enter real-world financial passwords or personal banking credentials.
+            </p>
+            <p>
+              Annual Percentage Yield (APY) of 4.85% for Way2Save® Savings is a simulated rate for software presentation purposes.
             </p>
             <p className="text-slate-400">
-              © {new Date().getFullYear()} Apex Bank, National Association. All rights reserved. Member Federal Reserve System.
+              © {new Date().getFullYear()} Apex Digital Banking Simulator. All rights reserved. Interactive Fintech Prototype Showcase.
             </p>
           </div>
 

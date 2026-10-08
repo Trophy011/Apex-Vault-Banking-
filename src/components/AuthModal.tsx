@@ -190,8 +190,11 @@ export const AuthModal: React.FC<AuthModalProps> = ({
             <ShieldCheck className="w-7 h-7 sm:w-8 sm:h-8 text-blue-300" />
           </div>
 
+          <span className="inline-block px-2.5 py-0.5 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black uppercase tracking-wider mb-1.5">
+            Demo &amp; Simulation Sandbox
+          </span>
           <h2 className="text-xl sm:text-2xl font-bold tracking-tight">Apex Online Banking</h2>
-          <p className="text-[11px] sm:text-xs text-blue-200 mt-1">High-Security Financial Gateway & Capital Operations</p>
+          <p className="text-[11px] sm:text-xs text-blue-200 mt-0.5">Fintech Prototype &amp; Interactive Virtual Ledger Showcase</p>
         </div>
 
         {/* Tab switch for login / register */}
@@ -428,8 +431,8 @@ export const AuthModal: React.FC<AuthModalProps> = ({
               </button>
 
               <div className="text-center pt-2">
-                <p className="text-[11px] text-slate-400">
-                  Protected by 256-bit TLS protocol. Apex Bank operates under Federal Reserve and FDIC supervisory standards.
+                <p className="text-[11px] text-slate-500 leading-relaxed">
+                  🔒 Simulated Fintech Demonstration • Strictly for testing &amp; portfolio showcase purposes. Never enter real banking or sensitive personal passwords.
                 </p>
               </div>
             </form>
