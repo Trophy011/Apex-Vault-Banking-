@@ -389,15 +389,6 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
       {/* Max Width Container for Centered App Experience */}
       <div className="max-w-md sm:max-w-xl mx-auto space-y-4 sm:space-y-5">
 
-        {/* PERSISTENT DEMO & SIMULATION NOTICE */}
-        <div className="bg-amber-100/90 border border-amber-300 text-amber-950 text-[11px] font-bold px-3 py-1.5 rounded-xl flex items-center justify-between gap-2 shadow-xs">
-          <div className="flex items-center gap-1.5 truncate">
-            <span className="w-2 h-2 rounded-full bg-amber-500 animate-pulse shrink-0" />
-            <span className="truncate">Fintech Sandbox Simulator • Virtual Test Balances</span>
-          </div>
-          <span className="text-[10px] text-amber-800 font-mono shrink-0">Portfolio Demo</span>
-        </div>
-
         {/* TOP STATUS & UTILITY BAR (Matches picture top right actions) */}
         <div className="flex items-center justify-between pt-1 pb-2">
           {/* Subtle Bank Brand Watermark */}
@@ -992,11 +983,11 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
               {/* Standard Account & Security Activity Notice */}
               <div className="pt-3 p-3 rounded-2xl bg-emerald-50/60 border border-emerald-100 space-y-1 text-xs">
                 <div className="flex items-center justify-between text-emerald-800 font-bold text-[10px] uppercase tracking-wider">
-                  <span>Ledger &amp; Clearing Synchronization</span>
+                  <span>FDIC & Clearing Synchronization</span>
                   <span>Active</span>
                 </div>
                 <p className="text-slate-700 text-xs">
-                  Your Everyday Checking (...{last4}) and Way2Save® accounts are active under Apex Sandbox Clearing Node #021000089.
+                  Your Everyday Checking (...{last4}) and Way2Save® accounts are active under Federal Reserve Node #021000089.
                 </p>
                 <p className="text-[10px] text-slate-400">
                   {new Date().toLocaleDateString([], { dateStyle: 'medium' })}
@@ -1354,7 +1345,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
             <div className="space-y-2 text-xs text-slate-600">
               <p>• Save As You Go® automatic debit card purchase roundups enabled.</p>
               <p>• Interest compounded daily, credited on the last business day of each month.</p>
-              <p>• 100% simulated protection model up to $250,000.</p>
+              <p>• 100% FDIC coverage up to $250,000.</p>
             </div>
 
             <button
@@ -1397,7 +1388,7 @@ export const CustomerDashboard: React.FC<CustomerDashboardProps> = ({
                 className="p-3.5 border border-slate-200 hover:border-blue-500 rounded-2xl cursor-pointer hover:bg-blue-50/40 transition-all"
               >
                 <p className="font-bold text-sm text-slate-900">High-Yield CD (12 Months)</p>
-                <p className="text-xs text-slate-500">Fixed 5.25% APY with sandbox deposit protection model.</p>
+                <p className="text-xs text-slate-500">Fixed 5.25% APY with guaranteed FDIC protection.</p>
               </div>
 
               <div

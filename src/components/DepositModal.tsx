@@ -437,9 +437,9 @@ export const DepositModal: React.FC<DepositModalProps> = ({
               {/* Bank Name & Address */}
               <div className="p-3 bg-slate-50 border border-slate-200 rounded-2xl space-y-1">
                 <p className="text-[10px] uppercase font-bold text-slate-500">Receiving Bank</p>
-                <p className="text-xs font-bold text-slate-900">Apex Online Banking (Simulated Depository)</p>
-                <p className="text-[11px] text-slate-600">Simulated Financial Showcase • New York, NY</p>
-                <p className="text-[10px] font-mono text-emerald-700 pt-0.5">Sandbox Virtual Ledger • Clearing Simulator Node #021000089</p>
+                <p className="text-xs font-bold text-slate-900">Apex National Commercial Bank, N.A.</p>
+                <p className="text-[11px] text-slate-600">300 Park Avenue, Financial District, New York, NY 10022</p>
+                <p className="text-[10px] font-mono text-emerald-700 pt-0.5">FDIC Certificate #34120 • Fed Node #021000089</p>
               </div>
 
               <div className="pt-2">
